@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CliCk - Login</title>
+    <style>
+        @import url("css/style_login.css");
+    </style>
+</head>
+<body>
+    <!-- MAIN -->
+    <main>
+        <!-- LOGO CONTAINER -->
+        <header>
+            <div class="logo">
+                <img src="img/logo.png" alt="logo">
+            </div>
+            <div class="down"></div>
+        </header>
+
+        <!-- FORM CONTAINER -->
+        <form method="POST" novalidate>
+            <input id="username" type="text" class="field" name="username" placeholder="example@email.com">
+            <input id="password" type="password" class="field" name="password" placeholder="password">
+            <input id="button" type="submit" name="login" value="LOGIN">
+            <div class="forgot-psw">
+                <a href="#">Forgot your password?</a>
+                <span id="warning"></span>
+            </div>
+        </form>
+    </main>
+    <footer>
+        &#169 Copyright CliCk Company 2017
+    </footer>
+</body>
+<script>
+    "use strict";
+
+    var username = document.getElementById("username");
+    var password = document.getElementById("password");
+    var button = document.getElementById("button");
+    var warning = document.getElementById("warning");
+
+    var db = null;
+    function loadJSON(callback) {
+        var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+        xobj.onreadystatechange = function () {
+            if (xobj.readyState == 4 && xobj.status == "200") {
+                // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+                callback(xobj.responseText);
+            }
+        };
+        xobj.open('GET', 'scripts/users.json', true);
+        xobj.send(null);
+    }
+
+    loadJSON(function (response) {
+        // Parse JSON string into object
+        db = JSON.parse(response);
+    });
+
+    function login() {
+        var i = 0;
+        for (i = 0; i < db.length; i++) {
+            if (db[i].email == username.value) {
+                break;
+            }
+        }
+        if ((username.value == "") && (password.value == "")) {
+            warning.innerHTML = " - Campi E-Mail e Password vuoti"
+            return null;
+        }
+        if (username.value == "") {
+            warning.innerHTML = " - Campo E-Mail vuoto"
+            return null;
+        }
+        if (password.value == "") {
+            warning.innerHTML = " - Campo Password vuoto"
+            return null;
+        }
+        if (i == db.length) {
+            warning.innerHTML = " - E-Mail non registrata"
+            return null;
+        }
+        if ((username.value == db[i].email) && (password.value == db[i].password)) {
+            document.cookie = i;
+            window.location.href = "index.html";
+        }
+        else if ((username.value == db[i].email) && (password.value != db[i].password) && (password.value != "")) {
+            warning.innerHTML = " - Password errata"
+        }
+    }
+
+    button.onclick = function (e) {
+        login();
+        e.preventDefault();
+    }
+</script>
+</html>

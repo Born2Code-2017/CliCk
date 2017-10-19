@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>CliCk - Homepage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url("css/style.css");
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="img/logo.png" class="logo">
+        <img src="icon/bell.png" class="notification">
+    </header>
+    <div class="under_header"></div>
+    <div class="profile_container table">
+        <div class="table-row">
+            <div id="location_age" class="profile_info_left table-cell">
+            </div>
+            <img id="profile" src="" class="profile table-cell">
+            <div id="name" class="profile_info_right table-cell">
+            </div>
+        </div>
+    </div>
+    <div class="table_buttons">
+        <div class="trash">View Trash Bin</div>
+        <div class="plus desktop">New Event</div>
+        <input class="desktop" type="search" placeholder="Search by name">
+    </div>
+    <main>
+        <div class="table">
+            <div class="table-row events_row">
+                <div class="table-cell color_cell"></div>
+                <div class="table-cell date_cell">
+                    <div class="calendar">
+                        <div class="small"></div>
+                        <div class="time"></div>
+                    </div>
+                </div>
+                <div class="table-cell name_cell desktop">
+                    <img src="icon/clipboard.png" class="clipboard icon">
+                    <span class="table_text"></span>
+                </div>
+                <div class="table-cell name_cell mobile">
+                    <span class="table_text_mobile"></span>
+                    <span class="table_text_mobile"></span>
+                    <span class="table_text_mobile"></span>
+                </div>
+                <div class="table-cell person_cell">
+                    <img src="img/fabio.jpg" class="small_avatar">
+                    <span class="table_text table_text_avatar desktop"></span>
+                </div>
+                <div class="table-cell location_cell desktop">
+                    <img src="icon/location.png" class="location icon">
+                    <span class="table_text"></span>
+                </div>
+                <div class="table-cell going_cell desktop">
+                    <img src="icon/users.png" class="users icon">
+                    <span class="table_text"></span>
+                </div>
+                <div class="table-cell buttons_cell desktop">
+                    <div class="check_button"></div>
+                    <div class="trash_button"></div>
+                    <div class="more_button"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        © Copyright CliCk Company 2017
+    </footer>
+</body>
+<script>
+    "use strict";
+
+    var id = document.cookie;
+    var db = null, db2 = null;
+
+    function load_usersJSON(callback) {
+        var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+        xobj.onreadystatechange = function () {
+            if (xobj.readyState == 4 && xobj.status == "200") {
+                // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+                callback(xobj.responseText);
+            }
+        };
+        xobj.open('GET', 'scripts/users.json', true);
+        xobj.send(null);
+    }
+
+    function load_eventsJSON(callback) {
+        var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+        xobj.onreadystatechange = function () {
+            if (xobj.readyState == 4 && xobj.status == "200") {
+                // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+                callback(xobj.responseText);
+            }
+        };
+        xobj.open('GET', 'scripts/events.json', true);
+        xobj.send(null);
+    }
+
+    load_usersJSON(function (response) {
+        // Parse JSON string into object
+        db = JSON.parse(response);
+    });
+
+    load_eventsJSON(function (response) {
+        // Parse JSON string into object
+        db2 = JSON.parse(response);
+    });
+
+    window.addEventListener("load", function () {
+        if ((db == null) || (db2 == null)) {
+            window.location.replace("index.html");
+        }
+
+        var location_age = document.getElementById("location_age");
+        var name = document.getElementById("name");
+        var avatar = document.getElementById("profile");
+        var table_row = null, field = null, field_mobile = null, calendar = null, month = null, time = null, small_avatar = null, color = null, check = null, trash = null;
+        var table = document.getElementsByClassName("table");
+
+
+        location_age.innerHTML = db[id].location + ", " + db[id].age + " Years Old<div>" + db[id].job + "</div>";
+        name.innerHTML = db[id].name + "<div>" + db[id].email + "</div>";
+
+        avatar.src = "img/" + (db[id].name.split(" ")[0]).toLowerCase() + ".jpg";
+
+        var z = 1;
+        for (var index = 0; index < db2.length; index++) {
+            if (index > 0) {
+                table_row = document.getElementsByClassName("table-row");
+                table_row = table_row[1].cloneNode(true);
+                table[1].appendChild(table_row);
+                z = 4;
+            }
+
+            field = document.getElementsByClassName("table_text");
+            field_mobile = document.getElementsByClassName("table_text_mobile");
+            calendar = document.getElementsByClassName("calendar");
+            month = document.getElementsByClassName("small");
+            time = document.getElementsByClassName("time");
+            small_avatar = document.getElementsByClassName("small_avatar");
+            color = document.getElementsByClassName("color_cell");
+            check = document.getElementsByClassName("check_button");
+            trash = document.getElementsByClassName("trash_button");
+
+            calendar[index].innerHTML = db2[index].date.substring(0, 2) + calendar[index].innerHTML.substring(2, calendar[index].length);
+            month[index].innerHTML = monthConversion(db2[index].date);
+            time[index].innerHTML = db2[index].time;
+            field[index * z].innerHTML = db2[index].name;
+            field[index * z + 1].innerHTML = findName(index);
+            field[index * z + 2].innerHTML = db2[index].city + ", " + db2[index].address;
+            field[index * z + 3].innerHTML = db2[index].going + " Going";
+            field_mobile[index].innerHTML = db2[index].name;
+            field_mobile[index + 1].innerHTML = db2[index].city + ", " + db2[index].address;
+            field_mobile[index + 2].innerHTML = db2[index].going + " Going";
+            small_avatar[index].src = "img/" + (db[db2[index].user_id].name.split(" ")[0]).toLowerCase() + ".jpg";
+
+            // 0 = Waiting for approval // 1 = Confirmed // 2 = Trashed // 3 = Owner
+            if (db2[index].user_id == id) {
+                color[index].className += " color_edit";
+                check[index].className = "edit_button";
+            }
+            else {
+                color[index].className += " color_checked";
+            }
+        }
+
+    }, false)
+
+    function findName(x) {
+        for (var i = 0; i < db.length; i++) {
+            if (db2[x].user_id == db[i].id) {
+                return db[i].name;
+            }
+        }
+    }
+
+    function monthConversion(date) {
+        var month = date.substring(3, 5);
+
+        switch (month) {
+            case "01":
+                month = "GEN";
+                break;
+            case "02":
+                month = "FEB";
+                break;
+            case "03":
+                month = "MAR";
+                break;
+            case "04":
+                month = "APR";
+                break;
+            case "05":
+                month = "MAY";
+                break;
+            case "06":
+                month = "JUN";
+                break;
+            case "07":
+                month = "JUL";
+                break;
+            case "08":
+                month = "AUG";
+                break;
+            case "09":
+                month = "SEP";
+                break;
+            case "10":
+                month = "OCT";
+                break;
+            case "11":
+                month = "NOV";
+                break;
+            case "12":
+                month = "DEC";
+                break;
+        }
+
+        return month;
+    }
+</script>
+
+</html>
