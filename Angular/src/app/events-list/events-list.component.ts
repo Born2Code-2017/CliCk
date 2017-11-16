@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { Event } from './events-list.module';
+import { Component, Input } from '@angular/core';
+import { User } from '../user.module';
+import { Event } from '../event.module';
 
 @Component({
   selector: 'app-events-list',
@@ -7,65 +8,12 @@ import { Event } from './events-list.module';
   styleUrls: ['./events-list.component.css']
 })
 export class EventsListComponent {
-  public eventsDB:Event[] = [];
-  
+  @Input() usersDB: User[];
+  @Input() eventsDB: Event[];
+  public loggedUser: string;
+
   constructor() {
-    this.eventsDB = [
-      {
-        owner_id: 1,
-        date: "18/01/2017",
-        time: "19:15",
-        name: "Model Bootcamp",
-        city: "Milan",
-        address: "Garibaldi Street 38E",
-        going: 153
-      },
-      {
-        owner_id: 0,
-        date: "27/01/2017",
-        time: "22:00",
-        name: "Gala Evening",
-        city: "Florence",
-        address: "Cavour Square 2A",
-        going: 371
-      },
-      {
-        owner_id: 2,
-        date: "07/02/2017",
-        time: "20:30",
-        name: "Fashion Week",
-        city: "Venice",
-        address: "Spain Square 171C",
-        going: 977
-      },
-      {
-        owner_id: 4,
-        date: "19/02/2017",
-        time: "18:45",
-        name: "Hair Styles Showreel",
-        city: "Milan",
-        address: "Alighieri Street 29D",
-        going: 101
-      },
-      {
-        owner_id: 3,
-        date: "31/02/2017",
-        time: "17:00",
-        name: "Photo Gallery",
-        city: "Rome",
-        address: "Marsala Street 17B",
-        going: 592
-      },
-      {
-        owner_id: 4,
-        date: "02/03/2017",
-        time: "18:15",
-        name: "Make-Up Exposès",
-        city: "Milan",
-        address: "Mazzini Street 22C",
-        going: 76
-      }
-    ]
+    this.loggedUser = sessionStorage.getItem("loggedUser");
   }
 
   public newEvent(owner_id, date, time, name, city, address, going) {
@@ -79,5 +27,50 @@ export class EventsListComponent {
       going: going
     }
     this.eventsDB.push(event);
+  }
+
+  monthConversion(date) {
+    var month = date.substring(3, 5);
+
+    switch (month) {
+      case "01":
+        month = "GEN";
+        break;
+      case "02":
+        month = "FEB";
+        break;
+      case "03":
+        month = "MAR";
+        break;
+      case "04":
+        month = "APR";
+        break;
+      case "05":
+        month = "MAY";
+        break;
+      case "06":
+        month = "JUN";
+        break;
+      case "07":
+        month = "JUL";
+        break;
+      case "08":
+        month = "AUG";
+        break;
+      case "09":
+        month = "SEP";
+        break;
+      case "10":
+        month = "OCT";
+        break;
+      case "11":
+        month = "NOV";
+        break;
+      case "12":
+        month = "DEC";
+        break;
+    }
+
+    return month;
   }
 }

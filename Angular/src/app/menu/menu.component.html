@@ -16,17 +16,17 @@
 <div class="under_header"></div>
 <div class="row">
   <div class="col-xs-5">
-    {{userDB[0].location + ", " + userDB[0].age}}
+    {{usersDB[loggedUser].location + ", " + usersDB[loggedUser].age}}
     <span class="glyphicon glyphicon-map-marker"></span>
-    <br> {{userDB[0].job}}
+    <br> {{usersDB[loggedUser].job}}
     <span class="glyphicon glyphicon-briefcase"></span>
   </div>
   <div class="col-xs-2">
     <img src="../assets/ilaria.jpg">
   </div>
   <div class="col-xs-5">
-    <span class="glyphicon glyphicon-user"></span> {{userDB[0].name}}
+    <span class="glyphicon glyphicon-user"></span> {{usersDB[loggedUser].name}}
     <br>
-    <span class="glyphicon glyphicon-envelope"></span> {{userDB[0].email}}
+    <span class="glyphicon glyphicon-envelope"></span> {{usersDB[loggedUser].email}}
   </div>
 </div>
