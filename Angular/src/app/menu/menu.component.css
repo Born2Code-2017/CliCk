@@ -2,6 +2,7 @@
     border-radius: 0 !important;
     margin-bottom: 0 !important;
     min-height: 70px !important;
+    background-color:white;
 }
 
 .container-fluid {
@@ -27,4 +28,18 @@
 .under_header {
     background: repeating-linear-gradient( 130deg, #61dcff, #61dcff 1.0em, #5bc7ed 1.0em, #5bc7ed 1.2em);
     height: 35px;
+}
+
+.img-circle{
+    max-width: 100%;
+    border: 3px solid white;
+    margin-top: -55px;
+}
+
+.col-sm-5{
+    color: white;
+}
+
+.col-sm-5:first-child{
+    text-align: right;
 }
