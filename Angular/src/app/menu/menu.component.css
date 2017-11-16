@@ -33,6 +33,7 @@
 .row {
     text-align: center;
     color: white;
+    margin: 0 !important;
 }
 
 .col-xs-2 img {
