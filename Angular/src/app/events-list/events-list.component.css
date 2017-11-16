@@ -1,0 +1,15 @@
+table {
+    background-color:white;
+    border-radius:5px !important;
+    margin-top:50px !important;
+}
+
+.bg-dark {
+    background-color: #343a40;
+    border-bottom:1px solid #343a40;
+}
+
+.bg-warning {
+    background-color: #ffc107;
+    border-bottom:1px solid #ffc107;
+}

@@ -2,6 +2,7 @@
     border-radius: 0 !important;
     margin-bottom: 0 !important;
     min-height: 70px !important;
+    background-color:white;
 }
 
 .container-fluid {
@@ -27,4 +28,43 @@
 .under_header {
     background: repeating-linear-gradient( 130deg, #61dcff, #61dcff 1.0em, #5bc7ed 1.0em, #5bc7ed 1.2em);
     height: 35px;
+}
+
+.row {
+    text-align: center;
+    color: white;
+}
+
+.col-xs-2 img {
+    width:100% !important;
+    border-radius:100%;
+    border:2px solid white;
+    margin-top:-70px;
+}
+
+.col-xs-5 {
+    margin-top: 15px;
+}
+
+.col-xs-5:first-child {
+    text-align: right;
+}
+
+.col-xs-5:last-child {
+    text-align:left;
+}
+
+@media screen and (max-width:768px) {
+    .col-xs-5 {
+        display: none;
+    }
+    row {
+        width:100% !important;
+    }
+    .col-xs-2 {
+        margin:auto;
+        float:none;
+        width:33.3% !important;
+    }
+
 }

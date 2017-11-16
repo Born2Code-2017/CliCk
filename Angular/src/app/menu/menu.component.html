@@ -1,14 +1,29 @@
 <nav class="navbar">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="index.html"><img src="../assets/logo.png" alt="logo"></a>
+      <a class="navbar-brand" href="index.html">
+        <img src="../assets/logo.png" alt="logo">
+      </a>
     </div>
     <ul class="nav navbar-nav navbar-right">
       <li>
         <a href="#" (click)="logOut()">
-          <span class="glyphicon glyphicon-log-out" ></span> Logout</a>
+          <span class="glyphicon glyphicon-log-out"></span> Logout</a>
       </li>
     </ul>
   </div>
 </nav>
 <div class="under_header"></div>
+<div class="row">
+  <div class="col-xs-5">
+    {{userDB[0].location + ", " + userDB[0].age}}
+    <br> {{userDB[0].job}}
+  </div>
+  <div class="col-xs-2">
+    <img src="../assets/ilaria.jpg">
+  </div>
+  <div class="col-xs-5">
+    {{userDB[0].name}}
+    <br> {{userDB[0].email}}
+  </div>
+</div>

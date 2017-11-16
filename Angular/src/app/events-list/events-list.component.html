@@ -1,3 +1,37 @@
-<p>
-  events-list works!
-</p>
+<div class="container">
+  <table class="table table-responsive table-hover table-striped">
+    <tr>
+      <th></th>
+      <th>Date & Time</th>
+      <th>Event's Name</th>
+      <th>Event's City</th>
+      <th>Event's Address</th>
+      <th>Event's Partecipants</th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let event of eventsDB">
+      <td *ngIf="event.owner_id !== 0" class="bg-dark"></td>
+      <td *ngIf="event.owner_id === 0" class="bg-warning"></td>
+      <td>{{event.date}}
+        <br>{{event.time}}</td>
+      <td>{{event.name}}</td>
+      <td>{{event.city}}</td>
+      <td>{{event.address}}</td>
+      <td>{{event.going}}</td>
+      <td>
+        <button *ngIf="event.owner_id !== 0" type="button" class="btn btn-primary">
+          <span class="glyphicon glyphicon-ok"></span>
+        </button>
+        <button *ngIf="event.owner_id === 0" type="button" class="btn btn-warning">
+          <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+        <button type="button" class="btn btn-danger">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+        <button type="button" class="btn btn-default">
+          <span class="glyphicon glyphicon-option-horizontal"></span>
+        </button>
+      </td>
+    </tr>
+  </table>
+</div>
