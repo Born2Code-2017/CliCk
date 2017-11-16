@@ -1,0 +1,61 @@
+.goLeft{
+    float: left;
+}
+.goRight{
+    float: right;
+}
+.divHeight{
+    margin-top: 6em;
+    margin-bottom: 6em;
+}
+.descrHeight{
+    height: 13.4em;
+}
+.noPadding{
+    padding: 0;
+    margin: 0;
+}
+.textArea{
+    border: 1px solid rgb(199, 199, 199);
+}
+.borderLeft{
+    border-left: 1em solid #61dcff;
+}
+.alignCenter{
+    text-align: center;
+}
+.borderNone{
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 0;
+}
+.btn-info{
+    border-top-left-radius: 1em;
+    border-bottom-left-radius: 1em;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0; 
+}
+.btn-cancel{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 1em;
+    border-bottom-right-radius: 1em;
+}
+.form-left{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 1em;
+    border-bottom-right-radius: 1em;
+}
+.form-right{
+    border-top-left-radius: 1em;
+    border-bottom-left-radius: 1em;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+@media (max-width: 991px) {
+    .dateHeight{
+        margin-top: 1em;
+    }
+}
