@@ -2,6 +2,11 @@ table {
     background-color:white;
     border-radius:5px !important;
     margin-top:50px !important;
+    margin-bottom:200px !important;
+}
+
+td {
+    vertical-align: middle !important;
 }
 
 .bg-dark {
