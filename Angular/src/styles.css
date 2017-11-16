@@ -1,12 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
 html {
-    height:100%; 
+    min-height:100%; 
+    position:relative;
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Cuprum', sans-serif !important;
     background-image: url("assets/bg2.png");
     min-height:100%;
-    position:relative;
 }

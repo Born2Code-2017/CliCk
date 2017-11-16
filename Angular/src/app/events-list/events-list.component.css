@@ -1,6 +1,5 @@
-table {
-    background-color:white;
-    border-radius:5px !important;
+.container {
+    padding:0 !important;
     margin-top:50px !important;
     margin-bottom:200px !important;
 }
@@ -11,12 +10,24 @@ td {
 
 .bg-dark {
     background-color: #343a40;
-    border-bottom:1px solid #343a40;
+    border:1px solid #343a40;
+    border-width:0 0 1px 0;
+    position:relative;
+    left:-1px;
 }
 
 .bg-warning {
     background-color: #ffc107;
-    border-bottom:1px solid #ffc107;
+    border:1px solid #ffc005;
+    border-width:0 0 1px 0;
+    position:relative;
+    left:-1px;
+}
+
+tr:last-child td.bg-dark {
+    bottom:-1px;
+    border-width:2px 0 0 1px;
+    border-top-left-radius: 0 !important;
 }
 
 td:nth-child(2) {
@@ -43,5 +54,9 @@ td:nth-child(2) {
 
 .btn {
     border-radius:1000px !important;
-    padding:7px 10px 7px 10px;
+    padding:5.75px 10px 5.75px 10px;
+}
+
+td button span {
+    line-height:inherit !important;
 }
