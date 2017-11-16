@@ -1,0 +1,30 @@
+.navbar {
+    border-radius: 0 !important;
+    margin-bottom: 0 !important;
+    min-height: 70px !important;
+}
+
+.container-fluid {
+    min-height: 70px !important;    
+}
+
+.navbar-brand, a {
+    padding: 0 !important;
+    line-height: 70px !important;
+    padding-left: 15px !important;
+    padding-right: 25px !important;
+}
+
+.navbar-header img {
+    width:100px;
+    padding-top:10.5px;
+}
+
+.navbar-nav a {
+    color: black !important;
+}
+
+.under_header {
+    background: repeating-linear-gradient( 130deg, #61dcff, #61dcff 1.0em, #5bc7ed 1.0em, #5bc7ed 1.2em);
+    height: 35px;
+}

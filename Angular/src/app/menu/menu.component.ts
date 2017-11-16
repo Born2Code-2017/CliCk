@@ -7,7 +7,13 @@ import { Component } from '@angular/core';
 })
 export class MenuComponent {
 
-  constructor() { }
+  public logOut() {
+    sessionStorage.setItem("sessionStatus", "0");
+    location.reload();
+  }
 
+  constructor() {
+
+  }
 
 }
