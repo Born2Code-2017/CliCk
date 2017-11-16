@@ -24,7 +24,12 @@ td {
     left:-1px;
 }
 
-tr:last-child td.bg-dark {
+tr:nth-child(2) td:first-child {
+    bottom:-1px;
+    border-top:1px solid #dddddd;
+}
+
+tr:last-child td:first-child {
     bottom:-1px;
     border-width:2px 0 0 1px;
     border-top-left-radius: 0 !important;
