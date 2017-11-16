@@ -4,20 +4,19 @@
       <th></th>
       <th>Date & Time</th>
       <th>Event's Name</th>
-      <th>Event's City</th>
-      <th>Event's Address</th>
+      <th>Event's Owner</th>
+      <th>Event's Location</th>
       <th>Event's Partecipants</th>
       <th></th>
     </tr>
     <tr *ngFor="let event of eventsDB">
       <td *ngIf="event.owner_id !== 0" class="bg-dark"></td>
       <td *ngIf="event.owner_id === 0" class="bg-warning"></td>
-      <td>{{event.date}}
-        <br>{{event.time}}</td>
-      <td>{{event.name}}</td>
-      <td>{{event.city}}</td>
-      <td>{{event.address}}</td>
-      <td>{{event.going}}</td>
+      <td><div class="calendar">{{event.date.substring(0,2)}}<br>{{monthConversion(event.date)}}</div><div class="time">{{event.time}}</div></td>
+      <td><span class="glyphicon glyphicon-bookmark"></span> {{event.name}}</td>
+      <td><span class="glyphicon glyphicon-user"></span> {{usersDB[event.owner_id].name}}</td>
+      <td><span class="glyphicon glyphicon-map-marker"></span> {{event.city}}, {{event.address}}</td>
+      <td><span class="glyphicon glyphicon-heart"></span> {{event.going}}</td>
       <td>
         <button *ngIf="event.owner_id !== 0" type="button" class="btn btn-primary">
           <span class="glyphicon glyphicon-ok"></span>
@@ -26,7 +25,7 @@
           <span class="glyphicon glyphicon-pencil"></span>
         </button>
         <button type="button" class="btn btn-danger">
-          <span class="glyphicon glyphicon-remove"></span>
+          <span class="glyphicon glyphicon-trash"></span>
         </button>
         <button type="button" class="btn btn-default">
           <span class="glyphicon glyphicon-option-horizontal"></span>

@@ -18,3 +18,30 @@ td {
     background-color: #ffc107;
     border-bottom:1px solid #ffc107;
 }
+
+td:nth-child(2) {
+    padding-bottom:8px;
+}
+
+.calendar {
+    width:50px;
+    height:50px;
+    border-radius:100%;
+    text-align: center;
+    background-color:#ececec;
+    padding-top:7px;
+    font-size:10px;
+}
+
+.calendar::first-line {
+    font-size:14px;
+}
+
+.time {
+    margin-left:7px;
+}
+
+.btn {
+    border-radius:1000px !important;
+    padding:7px 10px 7px 10px;
+}
