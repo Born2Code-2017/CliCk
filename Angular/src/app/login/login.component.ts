@@ -17,35 +17,35 @@ export class LoginComponent {
   validation: boolean;
   failEmail: boolean;
   failPsw: boolean;
-  public logIn() {      
-   for(var user in this.usersDB){
-      if(this.usersDB[user].email == this.inputEmail && this.usersDB[user].password == this.inputPassword){
-       this.validation = true;
-       this.failEmail = false;
-       this.failPsw = false;       
-       sessionStorage.setItem("sessionStatus", "1");
-       location.reload();
-       break;
-    } else if (this.usersDB[user].email !== this.inputEmail && this.usersDB[user].password !== this.inputPassword){
+  public logIn() { 
+    for(var i=0; i<this.usersDB.length; i++){  
+      if(this.usersDB[i].email !== this.inputEmail && this.usersDB[i].password !== this.inputPassword) {
       this.failEmail = true;
       this.failPsw = true; 
       this.validation = false;        
-      this.loginFail = "Insert valid email and password!";         
-      break;
-    } else if (this.usersDB[user].email !== this.inputEmail){
-      this.validation = false;  
-      this.loginFail = "Insert valid email!";
-      this.failEmail = true;
-      this.failPsw = false;    
-      break;
-    } else if (this.usersDB[user].password !== this.inputPassword){
-      this.validation = false;        
-      this.loginFail = "Insert valid password!";
-      this.failPsw = true;
-      this.failEmail = false;
-      break;
-    }
+      this.loginFail = "Insert valid email and password!";             
+    }     
    }
+   for(var i=0; i<this.usersDB.length; i++){    
+      if(this.usersDB[i].email == this.inputEmail && this.usersDB[i].password == this.inputPassword){
+       this.validation = true;
+       this.failEmail = false;
+       this.failPsw = false; 
+       sessionStorage.setItem("sessionStatus", "1");
+       location.reload();     
+       break;
+    } else if (this.usersDB[i].email == this.inputEmail){
+      this.failPsw = true;
+      this.failEmail = false; 
+      this.validation = false;        
+      this.loginFail = "Insert valid password!";    
+    }else if (this.usersDB[i].password == this.inputPassword){   
+      this.failEmail = true;
+      this.failPsw = false; 
+      this.validation = false;
+      this.loginFail = "Insert valid email!";         
+    }  
+   } 
   }
   constructor() {
     sessionStorage.setItem("sessionStatus", "0");
