@@ -1,9 +1,6 @@
-<div class="container">
-    <div class="col-xs-0 col-sm-2 col-md-4 col-lg-4"></div>
-    <div class="col-xs-12 col-sm-8 col-md-4 col-lg-4" align="center">
+<div class="container">    
+    <div class="col-xs-8 col-sm-6 col-md-5 col-lg-5 center-block" style="float: none;" align="center">
         <main>
-            <!-- LOGO CONTAINER -->
-
             <div class="logo-container">
                 <div class="logo">
                     <img src="../assets/logo.png" alt="logo">
@@ -12,17 +9,16 @@
             </div>
             <div>
                 <form novalidate >
-                    <input [(ngModel)]="inputEmail" class="form-control" type="text" id="name" name="name" placeholder="Enter email">
-                    <input [(ngModel)]="inputPassword" class="form-control" type="password" id="description" name="description" placeholder="Enter password">
+                    <input required [(ngModel)]="inputEmail" [class.fail-email]="failEmail === true" class="form-control" type="text" id="name" name="name" placeholder="Enter email">
+                    <input required [(ngModel)]="inputPassword" [class.fail-psw]="failPsw === true" class="form-control" type="password" id="description" name="description" placeholder="Enter password">
                     <button (click)="logIn()" type="button" class="btn btn-block">Login</button>
-                    <p>{{ loginFail }}</p>
-                    <div class="forgot-psw">Forgot your password?</div>
+                    <p *ngIf="!validation" class="form-alert"> {{ loginFail }}</p>
+                    <div class="forgot-psw"><a>Forgot your password?</a></div>
                 </form>
             </div>
         </main>     
-        <footer class="toshow">
-            Copyright CliCk Company 2017
+        <footer>
+            CliCk Company &copy; 2017
         </footer>
-    </div>
-    <div class="col-xs-0 col-sm-2 col-md-4 col-lg-4"></div>
+    </div>   
 </div>
