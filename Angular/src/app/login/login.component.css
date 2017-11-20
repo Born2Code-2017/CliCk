@@ -13,7 +13,7 @@ body {
 }
 /*** MAIN ***/
 main {
-     padding-top: 20%;
+     padding-top: 10%;
 }
 /** LOGO CONTAINER **/
 .logo-container {
@@ -67,7 +67,7 @@ input {
 [type="button"] {
 background-color: #61dcff;
 text-align: center;
-padding: 1em;
+height:54px;
 margin-bottom: 20px;
 }
 
@@ -84,8 +84,8 @@ margin-bottom: 20px;
 [type="text"], [type="password"] {
    
     text-align: center;
-    margin-bottom: 4%;  
-    padding: 25px; 
+    margin-bottom: 20px;  
+    height:54px;
 }
 
 /*** forgot password ***/
