@@ -1,61 +1,74 @@
-.goLeft{
-    float: left;
-}
-.goRight{
-    float: right;
-}
 .divHeight{
     margin-top: 6em;
     margin-bottom: 6em;
 }
-.descrHeight{
-    height: 13.4em;
+.form-control{
+    border-left: 1em solid #61dcff;
+    padding: 2em;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+}
+.embed-responsive-item{
+    padding: 0;
+    height: 19.8em;
+    border-top-left-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
 .noPadding{
     padding: 0;
     margin: 0;
 }
-.textArea{
-    border: 1px solid rgb(199, 199, 199);
-}
-.borderLeft{
-    border-left: 1em solid #61dcff;
-}
-.alignCenter{
-    text-align: center;
-}
-.borderNone{
-    border-top: 0;
-    border-right: 0;
-    border-bottom: 0;
-}
 .btn-info{
-    border-top-left-radius: 1em;
-    border-bottom-left-radius: 1em;
+    float: right;
+    width: 8em;
+    margin-right: -15px;
+    padding: 1em;
+    border-top-left-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0; 
 }
 .btn-cancel{
+    width: 8em;
+    padding: 1em;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    border-top-right-radius: 1em;
-    border-bottom-right-radius: 1em;
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
 }
-.form-left{
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 1em;
-    border-bottom-right-radius: 1em;
-}
-.form-right{
-    border-top-left-radius: 1em;
-    border-bottom-left-radius: 1em;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+.marginR{
+    padding-right: 0.5em;
 }
 
+.marginL{
+    padding-left: 0.5em;
+}
+
+
 @media (max-width: 991px) {
-    .dateHeight{
+    .helpHeight{
         margin-top: 1em;
+    }
+    .btn{
+        margin-top: 1em;
+    }
+    .btn-info{
+        margin-right: 15px;
+    }
+    .form-control{
+        border-radius: 0;
+    }
+    .embed-responsive-item{
+        border-radius: 0;
+    }
+    .marginL{
+        padding: 0;
+    }
+    .marginR{
+        padding: 0;
     }
 }

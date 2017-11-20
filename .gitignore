@@ -1,1 +1,5 @@
 .DS_Store
+Angular/src/app/app.component.ts
+Angular/src/app/new-event/new-event.component.html
+Angular/src/app/app.component.html
+Angular/src/app/app.component.html
