@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { User } from '../user.module';
 
 @Component({
@@ -6,17 +6,25 @@ import { User } from '../user.module';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent {
+export class MenuComponent implements OnInit {
   @Input() usersDB: User[];
   public loggedUser: string;
+  public sessionStatus: string;
+  public avatar: string;
 
   public logOut() {
-    sessionStorage.setItem("sessionStatus", "0");
+    this.sessionStatus = "0";
+    sessionStorage.setItem("sessionStatus", this.sessionStatus);
     location.reload();
   }
 
   constructor() {
     this.loggedUser = sessionStorage.getItem("loggedUser");
+  }
+
+  ngOnInit() {
+    let loggedUserName = this.usersDB[this.loggedUser].name;
+    this.avatar = loggedUserName.substring(0, loggedUserName.indexOf(" ")).toLowerCase() + ".jpg";
   }
 
 }

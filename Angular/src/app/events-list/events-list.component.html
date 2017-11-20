@@ -10,8 +10,8 @@
       <th></th>
     </tr>
     <tr *ngFor="let event of eventsDB">
-      <td *ngIf="event.owner_id !== 0" class="bg-dark"></td>
-      <td *ngIf="event.owner_id === 0" class="bg-warning"></td>
+      <td *ngIf="event.owner_id !== usersDB[loggedUser].id" class="bg-dark"></td>
+      <td *ngIf="event.owner_id === usersDB[loggedUser].id" class="bg-warning"></td>
       <td>
         <div class="calendar">
           <div class="date">{{event.date.substring(0,2)}}
@@ -28,10 +28,10 @@
       <td>
         <span class="glyphicon glyphicon-heart"></span> {{event.going}}</td>
       <td>
-        <button *ngIf="event.owner_id !== 0" type="button" class="btn btn-primary">
+        <button *ngIf="event.owner_id !== usersDB[loggedUser].id" type="button" class="btn btn-primary">
           <span class="glyphicon glyphicon-ok"></span>
         </button>
-        <button *ngIf="event.owner_id === 0" type="button" class="btn btn-warning">
+        <button *ngIf="event.owner_id === usersDB[loggedUser].id" type="button" class="btn btn-warning">
           <span class="glyphicon glyphicon-pencil"></span>
         </button>
         <button type="button" class="btn btn-danger">
