@@ -17,6 +17,7 @@ export class LoginComponent {
   validation: boolean;
   failEmail: boolean;
   failPsw: boolean;
+  sessionStatus: string;
   public logIn() { 
     for(var i=0; i<this.usersDB.length; i++){  
       if(this.usersDB[i].email !== this.inputEmail && this.usersDB[i].password !== this.inputPassword) {
@@ -31,8 +32,10 @@ export class LoginComponent {
        this.validation = true;
        this.failEmail = false;
        this.failPsw = false; 
-       sessionStorage.setItem("sessionStatus", "1");
-       location.reload();     
+       this.sessionStatus = "1";
+       sessionStorage.setItem("sessionStatus", this.sessionStatus);
+       sessionStorage.setItem("loggedUser", this.usersDB[i].id.toString());
+       location.reload();
        break;
     } else if (this.usersDB[i].email == this.inputEmail){
       this.failPsw = true;
@@ -48,7 +51,8 @@ export class LoginComponent {
    } 
   }
   constructor() {
-    sessionStorage.setItem("sessionStatus", "0");
+    this.sessionStatus = "0";
+    sessionStorage.setItem("sessionStatus", this.sessionStatus);
     this.validation = true;
   }
 }
