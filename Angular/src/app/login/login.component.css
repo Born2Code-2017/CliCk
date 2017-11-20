@@ -13,7 +13,7 @@ body {
 }
 /*** MAIN ***/
 main {
-     padding-top: 10%;
+     padding-top: 30%;
 }
 /** LOGO CONTAINER **/
 .logo-container {
@@ -48,13 +48,15 @@ form {
     background-color: white;
     border-radius: 0.3em;
     padding: 45px 20px 30px 20px;
+    position: relative;
+    z-index: 1;
 }
 /*** input ***/
 
 input {
     border: 1px solid #cdcdcd;
     border-radius: 0.3em;
-    
+
 }
 .fail-email, .fail-psw {
     border-color: red; 
@@ -62,6 +64,20 @@ input {
 .form-alert{
     color: red;
     margin-bottom: 10px;
+}
+.fail-remember{
+    color: red;
+}
+.glyphicon{
+    position: absolute;
+    left: 30px;
+    z-index: 2;
+}
+.glyphicon-envelope{
+    top: 64px;  
+}
+.glyphicon-lock{
+    top:137px;
 }
 
 [type="button"] {

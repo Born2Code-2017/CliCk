@@ -1,4 +1,4 @@
-<div class="container">    
+<div class="container">
     <div class="col-xs-8 col-sm-6 col-md-5 col-lg-4 center-block" style="float: none;" align="center">
         <main>
             <div class="logo-container">
@@ -8,17 +8,28 @@
                 <div class="down"></div>
             </div>
             <div>
-                <form novalidate >
-                    <input required [(ngModel)]="inputEmail" [class.fail-email]="failEmail === true" class="form-control" type="text" id="name" name="name" placeholder="Enter email">
-                    <input required [(ngModel)]="inputPassword" [class.fail-psw]="failPsw === true" class="form-control" type="password" id="description" name="description" placeholder="Enter password">
-                    <button (click)="logIn()" type="button" class="btn btn-block">Login</button>
+                <form novalidate>
+                    <div>
+                        <i class="glyphicon glyphicon-envelope"></i>
+                        <input required [(ngModel)]="inputEmail" [class.fail-email]="failEmail === true" class="form-control" type="text" id="name"
+                            name="name" placeholder="Enter email">
+                    </div>
+                    <div *ngIf="!forgot">
+                        <i class="glyphicon glyphicon-lock"></i>
+                        <input required [(ngModel)]="inputPassword" [class.fail-psw]="failPsw === true" class="form-control" type="password" id="description"
+                            name="description" placeholder="Enter password">
+                    </div>
+                    <button *ngIf="!forgot" (click)="logIn()" type="button" class="btn btn-block">Login</button>
+                    <button *ngIf="forgot" (click)="send()" type="button" class="btn btn-block">Send</button>
                     <p *ngIf="!validation" class="form-alert"> {{ loginFail }}</p>
-                    <div class="forgot-psw"><a>Forgot your password?</a></div>
+                    <div class="forgot-psw">
+                        <a (click)="forgotPsw()">{{ remember }}</a>
+                    </div>
                 </form>
             </div>
-        </main>     
+        </main>
         <footer>
             CliCk Company &copy; 2017
         </footer>
-    </div>   
+    </div>
 </div>
