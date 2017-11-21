@@ -1,7 +1,7 @@
 <nav class="navbar">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="index.html">
+      <a class="navbar-brand" href="#" (click)="goHome()">
         <img src="../assets/logo.png" alt="logo">
       </a>
     </div>
@@ -9,6 +9,10 @@
       <li>
         <a href="#" (click)="logOut()">
           <span class="glyphicon glyphicon-log-out"></span> Logout</a>
+      </li>
+      <li>
+        <a href="#" (click)="newEvent()">
+          <span class="glyphicon glyphicon-plus"></span> New Event</a>
       </li>
     </ul>
   </div>

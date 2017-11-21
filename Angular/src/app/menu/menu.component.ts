@@ -12,12 +12,6 @@ export class MenuComponent implements OnInit {
   public sessionStatus: string;
   public avatar: string;
 
-  public logOut() {
-    this.sessionStatus = "0";
-    sessionStorage.setItem("sessionStatus", this.sessionStatus);
-    location.reload();
-  }
-
   constructor() {
   }
 
@@ -25,6 +19,24 @@ export class MenuComponent implements OnInit {
     this.loggedUser = sessionStorage.getItem("loggedUser");
     let loggedUserName = this.usersDB[this.loggedUser].name;
     this.avatar = loggedUserName.substring(0, loggedUserName.indexOf(" ")).toLowerCase() + ".jpg";
+  }
+
+  public goHome() {
+    this.updateSessionStatus("1");
+  }
+
+  public newEvent() {
+    this.updateSessionStatus("2");
+  }
+
+  public logOut() {
+    this.updateSessionStatus("0");
+  }
+
+  public updateSessionStatus(n:string) {
+    this.sessionStatus = n;
+    sessionStorage.setItem("sessionStatus", this.sessionStatus);
+    location.reload();
   }
 
 }
