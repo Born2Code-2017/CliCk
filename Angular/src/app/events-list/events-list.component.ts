@@ -19,19 +19,6 @@ export class EventsListComponent implements OnInit {
     this.loggedUser = sessionStorage.getItem("loggedUser");
   }
 
-  public newEvent(owner_id, date, time, name, city, address, going) {
-    let event = {
-      owner_id: owner_id,
-      date: date,
-      time: time,
-      name: name,
-      city: city,
-      address: address,
-      going: going
-    }
-    this.eventsDB.push(event);
-  }
-
   monthConversion(date) {
     var month = date.substring(3, 5);
 

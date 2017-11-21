@@ -6,4 +6,5 @@ export class Event {
     city: string;
     address: string;
     going: number;
+    description: string;
 }
