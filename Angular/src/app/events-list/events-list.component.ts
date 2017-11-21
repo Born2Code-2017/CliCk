@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { User } from '../user.module';
 import { Event } from '../event.module';
 
@@ -7,12 +7,15 @@ import { Event } from '../event.module';
   templateUrl: './events-list.component.html',
   styleUrls: ['./events-list.component.css']
 })
-export class EventsListComponent {
+export class EventsListComponent implements OnInit {
   @Input() usersDB: User[];
   @Input() eventsDB: Event[];
   public loggedUser: string;
 
   constructor() {
+  }
+
+  ngOnInit() {
     this.loggedUser = sessionStorage.getItem("loggedUser");
   }
 

@@ -19,10 +19,10 @@ export class MenuComponent implements OnInit {
   }
 
   constructor() {
-    this.loggedUser = sessionStorage.getItem("loggedUser");
   }
 
   ngOnInit() {
+    this.loggedUser = sessionStorage.getItem("loggedUser");
     let loggedUserName = this.usersDB[this.loggedUser].name;
     this.avatar = loggedUserName.substring(0, loggedUserName.indexOf(" ")).toLowerCase() + ".jpg";
   }
