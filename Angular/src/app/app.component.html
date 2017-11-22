@@ -2,5 +2,5 @@
 <app-login [usersDB]="usersDB" *ngIf="sessionStatus === '0' && usersDB"></app-login>
 <app-menu [usersDB]="usersDB" *ngIf="sessionStatus >= '1' && usersDB"></app-menu>
 <app-events-list [usersDB]="usersDB" [eventsDB]="eventsDB" *ngIf="sessionStatus === '1' && usersDB && eventsDB"></app-events-list>
-<app-new-event *ngIf="sessionStatus === '2' && eventsDB"></app-new-event>
+<app-new-event [eventsDB]="eventsDB" *ngIf="sessionStatus === '2' && eventsDB"></app-new-event>
 <app-footer *ngIf="sessionStatus >= '1' && eventsDB"></app-footer>

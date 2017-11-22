@@ -3,25 +3,43 @@
     <div class="row">
       <div class="col-md-6 col-sm-12">
         <div class="form-group col-md-12 col-sm-12">
-          <input class="form-control col-md-12 col-sm-12" type="text" placeholder="Event's Name">
-        </div>
-        <div class="form-group col-md-12 col-sm-12">
-          <input class="form-control col-md-12 col-sm-12" type="text" placeholder="Event's Description">
-        </div>
-        <div class="form-group col-md-12 col-sm-12">
-          <div class="form-group col-md-6 col-sm-12 marginR noPadding">
-            <input class="form-control col-md-12 col-sm-12" type="text" placeholder="Event's Date">
+          <input #name="ngModel" [(ngModel)]="event.name" required class="form-control col-md-12 col-sm-12" type="text" id="name" name="name" placeholder="Event's Name">
+          <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+            Name is required!!!
           </div>
-          <div class="form-group col-md-6 col-sm-12 helpHeight marginL noPadding">
-            <input class="form-control col-md-12 col-sm-12" type="text" placeholder="Event's Time">
+        </div>
+        <div class="form-group col-md-12 col-sm-12">
+          <input #description="ngModel" [(ngModel)]="event.description" required class="form-control col-md-12 col-sm-12" type="text" id="description" name="description" placeholder="Event's Description">
+          <div [hidden]="description.valid || description.pristine" class="alert alert-danger">
+            Description is required!!!
           </div>
         </div>
         <div class="form-group col-md-12 col-sm-12">
           <div class="form-group col-md-6 col-sm-12 marginR noPadding">
-            <input class="form-control col-md-12 col-sm-12" type="text" placeholder="Event's City">
+            <input #date="ngModel" [(ngModel)]="event.date" required class="form-control col-md-12 col-sm-12" type="text" id="date" name="date" placeholder="Event's Date">
+            <div [hidden]="date.valid || date.pristine" class="alert alert-danger">
+              Date is required!!!
+            </div>
           </div>
           <div class="form-group col-md-6 col-sm-12 helpHeight marginL noPadding">
-            <input class="form-control col-md-12 col-sm-12" type="text" placeholder="Event's Address">
+            <input #time="ngModel" [(ngModel)]="event.time" required class="form-control col-md-12 col-sm-12" type="text" id="time" name="time" placeholder="Event's Time">
+            <div [hidden]="time.valid || time.pristine" class="alert alert-danger">
+              Time is required!!!
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-12 col-sm-12">
+          <div class="form-group col-md-6 col-sm-12 marginR noPadding">
+            <input #city="ngModel" [(ngModel)]="event.city" required class="form-control col-md-12 col-sm-12" type="text" id="city" name="city" placeholder="Event's City">
+            <div [hidden]="city.valid || city.pristine" class="alert alert-danger">
+              City is required!!!
+            </div>
+          </div>
+          <div class="form-group col-md-6 col-sm-12 helpHeight marginL noPadding">
+            <input #address="ngModel" [(ngModel)]="event.address" required class="form-control col-md-12 col-sm-12" type="text" id="address" name="address" placeholder="Event's Address">
+            <div [hidden]="address.valid || address.pristine" class="alert alert-danger">
+              Address is required!!!
+            </div>
           </div>
         </div>
       </div>
@@ -37,7 +55,7 @@
         <button type="button" class="btn btn-cancel">Cancel</button>
       </div>
       <div class="form-group col-md-6 col-sm-6 col-xs-6 noPadding">
-        <button type="button" class="btn btn-info">Create Event</button>
+        <button type="button" class="btn btn-info" (click)="createEvent()">Create Event</button>
       </div>
     </div>
   </form>
