@@ -9,7 +9,7 @@
       <th>Event's Partecipants</th>
       <th></th>
     </tr>
-    <tr *ngFor="let event of eventsDB | filterTrashed">
+    <tr *ngFor="let event of eventsDB | hideTrash">
       <td *ngIf="event.owner_id !== usersDB[loggedUser].id && event.trashedBy.indexOf(loggedUser) === -1" class="bg-dark"></td>
       <td *ngIf="event.owner_id === usersDB[loggedUser].id && event.trashedBy.indexOf(loggedUser) === -1" class="bg-warning"></td>
       <td *ngIf="event.trashedBy.indexOf(loggedUser) > -1" class="bg-danger"></td>
@@ -27,7 +27,7 @@
       <td>
         <span class="glyphicon glyphicon-map-marker"></span> {{event.city}}, {{event.address}}</td>
       <td>
-        <span class="glyphicon glyphicon-heart"></span> {{event.going}}</td>
+        <span class="glyphicon glyphicon-heart"></span> {{event.going}} People are going</td>
       <td>
         <button *ngIf="event.owner_id !== usersDB[loggedUser].id" type="button" class="btn btn-primary">
           <span class="glyphicon glyphicon-ok"></span>
@@ -57,7 +57,7 @@
       <th>Event's Partecipants</th>
       <th></th>
     </tr>
-    <tr *ngFor="let event of eventsDB | filterTrashed">
+    <tr *ngFor="let event of eventsDB | viewTrash">
       <td class="bg-danger"></td>
       <td>
         <div class="calendar">
@@ -73,9 +73,9 @@
       <td>
         <span class="glyphicon glyphicon-map-marker"></span> {{event.city}}, {{event.address}}</td>
       <td>
-        <span class="glyphicon glyphicon-heart"></span> {{event.going}}</td>
+        <span class="glyphicon glyphicon-heart"></span> {{event.going}} People are going</td>
       <td>
-        <button *ngIf="event.owner_id !== usersDB[loggedUser].id" type="button" class="btn btn-primary">
+        <button (click)="restoreEvent(event)" type="button" class="btn btn-primary">
           <span class="glyphicon glyphicon-repeat"></span>
         </button>
         <button type="button" class="btn btn-danger" (click)="moveToTrash(event)">
