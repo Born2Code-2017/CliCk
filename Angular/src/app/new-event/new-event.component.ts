@@ -20,7 +20,10 @@ export class NewEventComponent implements OnInit {
       city: '',
       address: '',
       going: undefined,
-      description: ''
+      description: '',
+      id: undefined,
+      trashedBy: ["-1"],
+      checkedBy: ["-1"]
     };
    }
 

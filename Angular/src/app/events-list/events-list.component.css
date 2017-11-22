@@ -35,6 +35,10 @@ td:nth-child(2) {
     padding-bottom:8px;
 }
 
+td:nth-child(7) {
+    text-align: center;
+}
+
 .calendar {
     width:50px;
 }
