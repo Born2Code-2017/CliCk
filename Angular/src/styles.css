@@ -9,4 +9,5 @@ body {
     font-family: 'Cuprum', sans-serif !important;
     background-image: url("assets/bg2.png");
     min-height:100%;
+    overflow-y: scroll;
 }

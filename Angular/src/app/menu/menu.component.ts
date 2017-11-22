@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { User } from '../user.module';
 
 @Component({
@@ -11,6 +11,8 @@ export class MenuComponent implements OnInit {
   public loggedUser: string;
   public sessionStatus: string;
   public avatar: string;
+
+  @Output() trashVisible: EventEmitter<any> = new EventEmitter();
 
   constructor() {
   }
@@ -29,11 +31,15 @@ export class MenuComponent implements OnInit {
     this.updateSessionStatus("2");
   }
 
+  public viewTrash() {
+    this.trashVisible.emit(null);
+  }
+
   public logOut() {
     this.updateSessionStatus("0");
   }
 
-  public updateSessionStatus(n:string) {
+  public updateSessionStatus(n: string) {
     this.sessionStatus = n;
     sessionStorage.setItem("sessionStatus", this.sessionStatus);
     location.reload();

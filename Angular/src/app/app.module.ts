@@ -21,6 +21,7 @@ import { MenuComponent } from './menu/menu.component';
 import { EventsListComponent } from './events-list/events-list.component';
 import { NewEventComponent } from './new-event/new-event.component';
 import { FooterComponent } from './footer/footer.component';
+import { TrashFilter } from './events-list/events-list.pipe';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { FooterComponent } from './footer/footer.component';
     MenuComponent,
     EventsListComponent,
     NewEventComponent,
-    FooterComponent
+    FooterComponent,
+    TrashFilter
   ],
   imports: [
     BrowserModule,

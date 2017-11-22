@@ -12,8 +12,10 @@ import { AngularFireDatabase } from 'angularfire2/database';
 export class AppComponent implements OnInit {
   // Session Status: 0 => Not logged in // 1 => Logged in // 2 => Logged in + New event
   sessionStatus: string;
-  usersDB: User;
-  eventsDB: Event;
+  usersDB: User[];
+  eventsDB: Event[];
+  trashedEvents: Event[];
+  trashToggle: boolean;
 
   constructor(private db: AngularFireDatabase) {
     this.sessionStatus = "0";
@@ -21,11 +23,25 @@ export class AppComponent implements OnInit {
     if (currentSession !== null) {
       this.sessionStatus = currentSession;
     }
+    this.trashToggle = false;
   }
 
   ngOnInit() {
     this.getDB("users/", 0);
     this.getDB("events/", 1);
+  }
+
+  trashToggler(payload) {
+    if (this.trashToggle === false) {
+      this.trashToggle = true;
+    }
+    else {
+      this.trashToggle = false;
+    }
+  }
+
+  trashEventHider(payload) {
+    this.eventsDB = payload;
   }
 
   getDB(path, n) {

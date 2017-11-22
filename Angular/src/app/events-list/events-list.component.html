@@ -1,5 +1,5 @@
 <div class="container panel">
-  <table class="table table-hover table-striped">
+  <table class="table table-hover table-striped" *ngIf="trashToggle === false">
     <tr>
       <th></th>
       <th>Date & Time</th>
@@ -9,9 +9,10 @@
       <th>Event's Partecipants</th>
       <th></th>
     </tr>
-    <tr *ngFor="let event of eventsDB">
-      <td *ngIf="event.owner_id !== usersDB[loggedUser].id" class="bg-dark"></td>
-      <td *ngIf="event.owner_id === usersDB[loggedUser].id" class="bg-warning"></td>
+    <tr *ngFor="let event of eventsDB | filterTrashed">
+      <td *ngIf="event.owner_id !== usersDB[loggedUser].id && event.trashedBy.indexOf(loggedUser) === -1" class="bg-dark"></td>
+      <td *ngIf="event.owner_id === usersDB[loggedUser].id && event.trashedBy.indexOf(loggedUser) === -1" class="bg-warning"></td>
+      <td *ngIf="event.trashedBy.indexOf(loggedUser) > -1" class="bg-danger"></td>
       <td>
         <div class="calendar">
           <div class="date">{{event.date.substring(0,2)}}
@@ -34,8 +35,51 @@
         <button *ngIf="event.owner_id === usersDB[loggedUser].id" type="button" class="btn btn-warning">
           <span class="glyphicon glyphicon-pencil"></span>
         </button>
-        <button type="button" class="btn btn-danger">
+        <button *ngIf="event.owner_id !== usersDB[loggedUser].id" type="button" class="btn btn-danger" (click)="moveToTrash(event)">
           <span class="glyphicon glyphicon-trash"></span>
+        </button>
+        <button *ngIf="event.owner_id === usersDB[loggedUser].id" type="button" class="btn btn-danger">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+        <button type="button" class="btn btn-default">
+          <span class="glyphicon glyphicon-option-horizontal"></span>
+        </button>
+      </td>
+    </tr>
+  </table>
+  <table class="table table-hover table-striped" *ngIf="trashToggle === true">
+    <tr>
+      <th></th>
+      <th>Date & Time</th>
+      <th>Event's Name</th>
+      <th>Event's Owner</th>
+      <th>Event's Location</th>
+      <th>Event's Partecipants</th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let event of eventsDB | filterTrashed">
+      <td class="bg-danger"></td>
+      <td>
+        <div class="calendar">
+          <div class="date">{{event.date.substring(0,2)}}
+            <br>{{monthConversion(event.date)}}</div>
+          <div class="time">{{event.time}}</div>
+        </div>
+      </td>
+      <td>
+        <span class="glyphicon glyphicon-bookmark"></span> {{event.name}}</td>
+      <td>
+        <span class="glyphicon glyphicon-user"></span> {{usersDB[event.owner_id].name}}</td>
+      <td>
+        <span class="glyphicon glyphicon-map-marker"></span> {{event.city}}, {{event.address}}</td>
+      <td>
+        <span class="glyphicon glyphicon-heart"></span> {{event.going}}</td>
+      <td>
+        <button *ngIf="event.owner_id !== usersDB[loggedUser].id" type="button" class="btn btn-primary">
+          <span class="glyphicon glyphicon-repeat"></span>
+        </button>
+        <button type="button" class="btn btn-danger" (click)="moveToTrash(event)">
+          <span class="glyphicon glyphicon-remove"></span>
         </button>
         <button type="button" class="btn btn-default">
           <span class="glyphicon glyphicon-option-horizontal"></span>

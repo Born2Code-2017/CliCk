@@ -1,22 +1,36 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { User } from '../user.module';
 import { Event } from '../event.module';
+
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Component({
   selector: 'app-events-list',
   templateUrl: './events-list.component.html',
   styleUrls: ['./events-list.component.css']
 })
+
 export class EventsListComponent implements OnInit {
   @Input() usersDB: User[];
   @Input() eventsDB: Event[];
+  @Input() trashedEvents: Event[];
+  @Input() trashToggle: boolean;
   public loggedUser: string;
 
-  constructor() {
+  @Output() trashEventHide: EventEmitter<any> = new EventEmitter();
+
+  constructor(private db: AngularFireDatabase) {
   }
 
   ngOnInit() {
     this.loggedUser = sessionStorage.getItem("loggedUser");
+  }
+
+  moveToTrash(event) {
+    event.trashedBy.push(this.loggedUser);
+    this.db.database.ref("events/" + event.id).set(event);
+    this.trashEventHide.emit(this.eventsDB);
+    console.log(this.eventsDB);
   }
 
   monthConversion(date) {

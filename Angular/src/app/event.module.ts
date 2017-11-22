@@ -7,4 +7,7 @@ export class Event {
     address: string;
     going: number;
     description: string;
+    id: number;
+    trashedBy: any;
+    checkedBy: any;
 }
