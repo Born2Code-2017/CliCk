@@ -2,9 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { HttpClientModule } from '@angular/common/http';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyALesUjo1v9tHLPTnFgCSIwyefq2fErp9k",
@@ -21,7 +19,8 @@ import { MenuComponent } from './menu/menu.component';
 import { EventsListComponent } from './events-list/events-list.component';
 import { NewEventComponent } from './new-event/new-event.component';
 import { FooterComponent } from './footer/footer.component';
-import { TrashFilter } from './events-list/events-list.pipe';
+import { HideTrash } from './events-list/hide-trashed.pipe';
+import { ViewTrash } from './events-list/view-trashed.pipe';
 
 
 @NgModule({
@@ -32,15 +31,14 @@ import { TrashFilter } from './events-list/events-list.pipe';
     EventsListComponent,
     NewEventComponent,
     FooterComponent,
-    TrashFilter
+    HideTrash,
+    ViewTrash
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireDatabaseModule,
-    AngularFireAuthModule
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

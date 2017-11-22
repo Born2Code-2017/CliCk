@@ -1,8 +1,10 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+
 import { User } from '../user.module';
 import { Event } from '../event.module';
 
-import { AngularFireDatabase } from 'angularfire2/database';
+import { HttpClient } from '@angular/common/http';
+import { Headers } from '@angular/http';
 
 @Component({
   selector: 'app-events-list',
@@ -13,13 +15,12 @@ import { AngularFireDatabase } from 'angularfire2/database';
 export class EventsListComponent implements OnInit {
   @Input() usersDB: User[];
   @Input() eventsDB: Event[];
-  @Input() trashedEvents: Event[];
   @Input() trashToggle: boolean;
   public loggedUser: string;
 
   @Output() trashEventHide: EventEmitter<any> = new EventEmitter();
 
-  constructor(private db: AngularFireDatabase) {
+  constructor(private http: HttpClient) {
   }
 
   ngOnInit() {
@@ -28,9 +29,19 @@ export class EventsListComponent implements OnInit {
 
   moveToTrash(event) {
     event.trashedBy.push(this.loggedUser);
-    this.db.database.ref("events/" + event.id).set(event);
     this.trashEventHide.emit(this.eventsDB);
-    console.log(this.eventsDB);
+    let request = this.http.put("https://click-e25d0.firebaseio.com/click/events.json/", JSON.stringify(this.eventsDB));
+    request.subscribe();
+  }
+
+  restoreEvent(event) {
+    let index = event.trashedBy.indexOf(this.loggedUser);
+
+    event.trashedBy.splice(index, 1);
+
+    this.trashEventHide.emit(this.eventsDB);
+    let request = this.http.put("https://click-e25d0.firebaseio.com/click/events.json/", JSON.stringify(this.eventsDB));
+    request.subscribe();
   }
 
   monthConversion(date) {
