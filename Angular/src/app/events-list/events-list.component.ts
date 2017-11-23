@@ -4,7 +4,6 @@ import { User } from '../user.module';
 import { Event } from '../event.module';
 
 import { HttpClient } from '@angular/common/http';
-import { Headers } from '@angular/http';
 
 @Component({
   selector: 'app-events-list',
@@ -18,7 +17,7 @@ export class EventsListComponent implements OnInit {
   @Input() trashToggle: boolean;
   public loggedUser: string;
 
-  @Output() trashEventHide: EventEmitter<any> = new EventEmitter();
+  @Output() trashEventOutput: EventEmitter<any> = new EventEmitter();
 
   constructor(private http: HttpClient) {
   }
@@ -29,17 +28,28 @@ export class EventsListComponent implements OnInit {
 
   moveToTrash(event) {
     event.trashedBy.push(this.loggedUser);
-    this.trashEventHide.emit(this.eventsDB);
-    let request = this.http.put("https://click-e25d0.firebaseio.com/click/events.json/", JSON.stringify(this.eventsDB));
-    request.subscribe();
+    this.pushToEventsDB();
   }
 
   restoreEvent(event) {
     let index = event.trashedBy.indexOf(this.loggedUser);
-
     event.trashedBy.splice(index, 1);
+    this.pushToEventsDB();
+  }
 
-    this.trashEventHide.emit(this.eventsDB);
+  deleteEvent(event) {
+    console.log("hey");
+    this.eventsDB.splice(event.id, 1);
+    let i = 0;
+    for (let event of this.eventsDB) {
+      event.id = i;
+      i++;
+    }
+    this.pushToEventsDB();
+  }
+
+  pushToEventsDB() {
+    this.trashEventOutput.emit(this.eventsDB);
     let request = this.http.put("https://click-e25d0.firebaseio.com/click/events.json/", JSON.stringify(this.eventsDB));
     request.subscribe();
   }

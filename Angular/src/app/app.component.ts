@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
     this.getDB("events", 1);
   }
 
-  trashToggler(payload) {
+  trashToggleInput(payload) {
     if (this.trashToggle === false) {
       this.trashToggle = true;
     }
@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  trashEventHider(payload) {
+  trashEventInput(payload) {
     this.eventsDB = payload;
   }
 

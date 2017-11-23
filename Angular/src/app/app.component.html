@@ -1,6 +1,6 @@
 <!-- Session Status: 0 => Not logged in // 1 => Logged in // 2 => Logged in + New event -->
 <app-login [usersDB]="usersDB" *ngIf="sessionStatus === '0' && usersDB"></app-login>
-<app-menu [usersDB]="usersDB" (trashVisible)="trashToggler($event)" *ngIf="sessionStatus >= '1' && usersDB"></app-menu>
-<app-events-list [usersDB]="usersDB" [eventsDB]="eventsDB"[trashToggle]="trashToggle" (trashEventHide)="trashEventHider($event)" *ngIf="sessionStatus === '1' && usersDB && eventsDB"></app-events-list>
-<app-new-event *ngIf="sessionStatus === '2' && eventsDB"></app-new-event>
+<app-menu [usersDB]="usersDB" (trashToggleOutput)="trashToggleInput($event)" *ngIf="sessionStatus >= '1' && usersDB"></app-menu>
+<app-events-list [usersDB]="usersDB" [eventsDB]="eventsDB"[trashToggle]="trashToggle" (trashEventOutput)="trashEventInput($event)" *ngIf="sessionStatus === '1' && usersDB && eventsDB"></app-events-list>
+<app-new-event [eventsDB]="eventsDB" *ngIf="sessionStatus === '2' && eventsDB"></app-new-event>
 <app-footer *ngIf="sessionStatus >= '1' && eventsDB"></app-footer>

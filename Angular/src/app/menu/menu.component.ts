@@ -12,7 +12,7 @@ export class MenuComponent implements OnInit {
   public sessionStatus: string;
   public avatar: string;
 
-  @Output() trashVisible: EventEmitter<any> = new EventEmitter();
+  @Output() trashToggleOutput: EventEmitter<any> = new EventEmitter();
 
   constructor() {
   }
@@ -32,7 +32,7 @@ export class MenuComponent implements OnInit {
   }
 
   public viewTrash() {
-    this.trashVisible.emit(null);
+    this.trashToggleOutput.emit(null);
   }
 
   public logOut() {
