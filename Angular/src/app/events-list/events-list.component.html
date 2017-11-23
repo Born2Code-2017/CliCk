@@ -38,9 +38,15 @@
         <button *ngIf="event.owner_id !== usersDB[loggedUser].id" type="button" class="btn btn-danger" (click)="moveToTrash(event)">
           <span class="glyphicon glyphicon-trash"></span>
         </button>
-        <button *ngIf="event.owner_id === usersDB[loggedUser].id" type="button" class="btn btn-danger">
-          <span class="glyphicon glyphicon-remove"></span>
-        </button>
+        <div *ngIf="event.owner_id === usersDB[loggedUser].id" class="btn-group">
+          <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-remove"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a (click)="deleteEvent(event)" href="#"><span class="glyphicon glyphicon-remove"></span> Confirm Deletion</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-menu-left"></span> Cancel</a></li>
+          </ul>
+        </div>
         <button type="button" class="btn btn-default">
           <span class="glyphicon glyphicon-option-horizontal"></span>
         </button>
