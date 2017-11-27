@@ -13,9 +13,6 @@ body {
 }
 /*** MAIN ***/
 .center-block{
-    margin: 0 auto;
-}
-.container {
     position:absolute;
     top:50%;
     left:50%;
@@ -34,8 +31,7 @@ body {
 }
 .logo {
     border-bottom: 1px solid #cdcdcd;
-    height: 5em;
-      
+    height: 4.5em;     
 }
 .logo img{
     height: 60px;  
