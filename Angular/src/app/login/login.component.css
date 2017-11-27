@@ -12,6 +12,9 @@ body {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 /*** MAIN ***/
+.center-block{
+    margin: 0 auto;
+}
 .container {
     position:absolute;
     top:50%;
@@ -74,16 +77,17 @@ input {
 .fail-remember{
     color: red;
 }
-.glyphicon{
+.fa{
     position: absolute;
     left: 30px;
     z-index: 2;
 }
-.glyphicon-envelope{
-    top: 64px;  
+.fa-envelope{
+    top: 62px;  
 }
-.glyphicon-lock{
-    top:137px;
+.fa-lock{
+    top:132px;
+    font-size: 23px;
 }
 
 [type="button"] {

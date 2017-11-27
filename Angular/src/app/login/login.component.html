@@ -10,12 +10,12 @@
             <div>
                 <form novalidate>
                     <div>
-                        <i class="glyphicon glyphicon-envelope"></i>
+                        <i class="fa fa-envelope"></i>
                         <input required [(ngModel)]="inputEmail" [class.fail-email]="failEmail === true" class="form-control" type="text" id="name"
                             name="name" placeholder="Enter email">
                     </div>
                     <div *ngIf="!forgot">
-                        <i class="glyphicon glyphicon-lock"></i>
+                        <i class="fa fa-lock"></i>
                         <input required [(ngModel)]="inputPassword" [class.fail-psw]="failPsw === true" class="form-control" type="password" id="description"
                             name="description" placeholder="Enter password">
                     </div>
