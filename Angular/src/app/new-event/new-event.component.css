@@ -1,74 +1,22 @@
-.divHeight{
-    margin-top: 6em;
-    margin-bottom: 6em;
-}
-.form-control{
-    border-left: 1em solid #61dcff;
-    height: 4.15em;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 0.5em;
-    border-bottom-right-radius: 0.5em;
-}
-.embed-responsive-item{
-    padding: 0;
-    height: 19.8em;
-    border-top-left-radius: 0.5em;
-    border-bottom-left-radius: 0.5em;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-}
-.noPadding{
-    padding: 0;
-    margin: 0;
-}
-.btn-info{
-    float: right;
-    width: 8em;
-    margin-right: -15px;
-    padding: 1em;
-    border-top-left-radius: 0.5em;
-    border-bottom-left-radius: 0.5em;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0; 
-}
-.btn-cancel{
-    width: 8em;
-    padding: 1em;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 0.5em;
-    border-bottom-right-radius: 0.5em;
-}
-.marginR{
-    padding-right: 0.5em;
+.container:first-child {
+    padding:20px !important;
+    margin-top:50px !important;
+    border:1px solid white;
+    border-radius:4px;
+    background: white;
 }
 
-.marginL{
-    padding-left: 0.5em;
+.container:last-child {
+    padding:0 !important;
+    margin-top:50px !important;
+    margin-bottom:200px !important;
 }
 
+.input-group-addon {
+    width:50px;
+    justify-content: center;
+}
 
-@media (max-width: 991px) {
-    .helpHeight{
-        margin-top: 1em;
-    }
-    .btn{
-        margin-top: 1em;
-    }
-    .btn-info{
-        margin-right: 15px;
-    }
-    .form-control{
-        border-radius: 0;
-    }
-    .embed-responsive-item{
-        border-radius: 0;
-    }
-    .marginL{
-        padding: 0;
-    }
-    .marginR{
-        padding: 0;
-    }
+.btn {
+    cursor: pointer;
 }

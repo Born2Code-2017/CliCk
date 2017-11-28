@@ -1,62 +1,61 @@
-<div class="container divHeight">
-  <form action="" name="form" id="form" novalidate>
-    <div class="row">
-      <div class="col-md-6 col-sm-12">
-        <div class="form-group col-md-12 col-sm-12">
-          <input #name="ngModel" [(ngModel)]="event.name" required class="form-control col-md-12 col-sm-12" type="text" id="name" name="name" placeholder="Event's Name">
-          <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-            Name is required!!!
-          </div>
-        </div>
-        <div class="form-group col-md-12 col-sm-12">
-          <input #description="ngModel" [(ngModel)]="event.description" required class="form-control col-md-12 col-sm-12" type="text" id="description" name="description" placeholder="Event's Description">
-          <div [hidden]="description.valid || description.pristine" class="alert alert-danger">
-            Description is required!!!
-          </div>
-        </div>
-        <div class="form-group col-md-12 col-sm-12">
-          <div class="form-group col-md-6 col-sm-12 marginR noPadding">
-            <input #date="ngModel" [(ngModel)]="event.date" required class="form-control col-md-12 col-sm-12" type="text" id="date" name="date" placeholder="Event's Date">
-            <div [hidden]="date.valid || date.pristine" class="alert alert-danger">
-              Date is required!!!
-            </div>
-          </div>
-          <div class="form-group col-md-6 col-sm-12 helpHeight marginL noPadding">
-            <input #time="ngModel" [(ngModel)]="event.time" required class="form-control col-md-12 col-sm-12" type="text" id="time" name="time" placeholder="Event's Time">
-            <div [hidden]="time.valid || time.pristine" class="alert alert-danger">
-              Time is required!!!
-            </div>
-          </div>
-        </div>
-        <div class="form-group col-md-12 col-sm-12">
-          <div class="form-group col-md-6 col-sm-12 marginR noPadding">
-            <input #city="ngModel" [(ngModel)]="event.city" required class="form-control col-md-12 col-sm-12" type="text" id="city" name="city" placeholder="Event's City">
-            <div [hidden]="city.valid || city.pristine" class="alert alert-danger">
-              City is required!!!
-            </div>
-          </div>
-          <div class="form-group col-md-6 col-sm-12 helpHeight marginL noPadding">
-            <input #address="ngModel" [(ngModel)]="event.address" required class="form-control col-md-12 col-sm-12" type="text" id="address" name="address" placeholder="Event's Address">
-            <div [hidden]="address.valid || address.pristine" class="alert alert-danger">
-              Address is required!!!
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-sm-12">
-        <div class="col-md-12 col-sm-12">
-          <iframe frameborder="0" class="embed-responsive-item col-md-12 col-sm-12 col-xs-12" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.6091732903506!2d12.501513050726272!3d41.901261571841914!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132f61a3f6bcb73d%3A0x461a57bcc3b95f55!2sLUISS+ENLABS!5e0!3m2!1sit!2sit!4v1507374134343"
-            allowfullscreen></iframe>
-        </div>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon" id="sizing-addon1">
+          <span class="fa fa-bookmark"></span>
+        </span>
+        <input [(ngModel)]="event.name" type="text" class="form-control" placeholder="Event's Name" aria-describedby="sizing-addon1">
       </div>
     </div>
-    <div class="row col-md-12">
-      <div class="form-group col-md-6 col-sm-6 col-xs-6">
-        <button type="button" class="btn btn-cancel">Cancel</button>
-      </div>
-      <div class="form-group col-md-6 col-sm-6 col-xs-6 noPadding">
-        <button type="button" class="btn btn-info" (click)="createEvent()">Create Event</button>
+    <div class="col">
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon" id="sizing-addon1">
+          <span class="fa fa-info"></span>
+        </span>
+        <input [(ngModel)]="event.description" type="text" class="form-control" placeholder="Event's Description" aria-describedby="sizing-addon1">
       </div>
     </div>
-  </form>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col">
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon" id="sizing-addon1">
+          <span class="fa fa-clock-o"></span>
+        </span>
+        <input [(ngModel)]="event.time" type="time" class="form-control" placeholder="Event's Time" aria-describedby="sizing-addon1">
+      </div>
+    </div>
+    <div class="col">
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon" id="sizing-addon1">
+          <span class="fa fa-map-marker"></span>
+        </span>
+        <input [(ngModel)]="event.city" type="text" class="form-control" placeholder="Event's City" aria-describedby="sizing-addon1">
+      </div>
+    </div>
+    <div class="col">
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon" id="sizing-addon1">
+          <span class="fa fa-location-arrow"></span>
+        </span>
+        <input [(ngModel)]="event.address" type="text" class="form-control" placeholder="Event's Address" aria-describedby="sizing-addon1">
+      </div>
+    </div>
+    <div class="col">
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon" id="sizing-addon1">
+          <span class="fa fa-calendar"></span>
+        </span>
+        <input [(ngModel)]="event.date" type="date" class="form-control" placeholder="Event's Date" aria-describedby="sizing-addon1">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <button (click)="goHome()" type="button" class="btn btn-outline-secondary btn-lg">
+    <span class="fa fa-angle-left"></span> Cancel</button>
+  <button (click)="createEvent()" type="button" class="btn btn-primary btn-lg" style="float:right">
+    <span class="fa fa-plus"></span> Create Event</button>
 </div>
