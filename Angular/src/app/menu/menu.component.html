@@ -1,40 +1,46 @@
-<nav class="navbar">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#" (click)="goHome()">
-        <img src="../assets/logo.png" alt="logo">
-      </a>
-    </div>
-    <ul class="nav navbar-nav navbar-right">
-      <li>
-        <a href="#" (click)="newEvent()">
-          <span class="glyphicon glyphicon-plus"></span> New Event</a>
+<nav *ngIf="usersDB" class="navbar navbar-expand-md navbar-light bg-faded">
+  <a (click)="goHome()" class="navbar-brand mr-auto">
+    <img src="../assets/logo.png" width="100" height="50" class="d-inline-block align-top" alt="Click">
+  </a>
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a (click)="viewTrash()" class="nav-link">
+          <span class="fa fa-trash"></span> View Trash</a>
       </li>
-      <li>
-        <a href="#" (click)="viewTrash()">
-          <span class="glyphicon glyphicon-trash"></span> View Trash</a>
+      <li class="nav-item">
+        <a (click)="newEvent()" class="nav-link">
+          <span class="fa fa-plus"></span> New Event</a>
       </li>
-      <li>
-        <a href="#" (click)="logOut()">
-          <span class="glyphicon glyphicon-log-out"></span> Logout</a>
+      <li class="nav-item">
+        <a (click)="logOut()" class="nav-link">
+          <span class="fa fa-sign-out"></span> Logout</a>
       </li>
     </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search">
+      <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+    </form>
   </div>
 </nav>
 <div class="under_header"></div>
-<div class="row">
-  <div class="col-xs-5">
-    {{usersDB[loggedUser].location + ", " + usersDB[loggedUser].age}}
-    <span class="glyphicon glyphicon-map-marker"></span>
-    <br> {{usersDB[loggedUser].job}}
-    <span class="glyphicon glyphicon-briefcase"></span>
-  </div>
-  <div class="col-xs-2">
-    <img src="../assets/{{avatar}}">
-  </div>
-  <div class="col-xs-5">
-    <span class="glyphicon glyphicon-user"></span> {{usersDB[loggedUser].name}}
+<div *ngIf="usersDB" class="row">
+  <div class="col">
+    <span class="fa fa-map-marker"></span> {{usersDB[loggedUser].location + ", " + usersDB[loggedUser].age}}
     <br>
-    <span class="glyphicon glyphicon-envelope"></span> {{usersDB[loggedUser].email}}
+    <span class="fa fa-briefcase"></span> {{usersDB[loggedUser].job}}
+  </div>
+  <div class="col">
+    <img src="../assets/{{avatar}}" width="200" height="200" alt="avatar">
+  </div>
+  <div class="col">
+    {{usersDB[loggedUser].name}}
+    <span class="fa fa-user"></span>
+    <br> {{usersDB[loggedUser].email}}
+    <span class="fa fa-envelope"></span>
   </div>
 </div>
