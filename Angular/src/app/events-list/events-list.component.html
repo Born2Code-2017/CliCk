@@ -1,5 +1,6 @@
-<div class="container panel">
-  <table class="table table-hover table-striped" *ngIf="trashToggle === false">
+<app-menu (trashToggleOutput)="trashToggleInput($event)"></app-menu>
+<div *ngIf="usersDB && eventsDB" class="container">
+  <table *ngIf="trashToggle === false" class="table table-striped">
     <tr>
       <th></th>
       <th>Date & Time</th>
@@ -9,51 +10,116 @@
       <th>Event's Partecipants</th>
       <th></th>
     </tr>
-    <tr *ngFor="let event of eventsDB | hideTrash">
-      <td *ngIf="event.owner_id !== usersDB[loggedUser].id && event.trashedBy.indexOf(loggedUser) === -1" class="bg-dark"></td>
-      <td *ngIf="event.owner_id === usersDB[loggedUser].id && event.trashedBy.indexOf(loggedUser) === -1" class="bg-warning"></td>
-      <td *ngIf="event.trashedBy.indexOf(loggedUser) > -1" class="bg-danger"></td>
+    <tr *ngFor="let event of eventsDB | hideTrash: usersDB">
+      <td *ngIf="event.owner_id !== usersDB[loggedUser].id && event.checkedBy.indexOf(loggedUser) === -1" class="bg-dark"></td>
+      <td *ngIf="event.owner_id === usersDB[loggedUser].id && event.checkedBy.indexOf(loggedUser) === -1" class="bg-warning"></td>
+      <td *ngIf="event.checkedBy.indexOf(loggedUser) > -1" class="bg-primary"></td>
       <td>
         <div class="calendar">
-          <div class="date">{{event.date.substring(0,2)}}
+          <div class="date">{{event.date.substring(8,10)}}
             <br>{{monthConversion(event.date)}}</div>
           <div class="time">{{event.time}}</div>
         </div>
       </td>
       <td>
-        <span class="glyphicon glyphicon-bookmark"></span> {{event.name}}</td>
+        <span class="fa fa-bookmark"></span> {{event.name}}</td>
       <td>
-        <span class="glyphicon glyphicon-user"></span> {{usersDB[event.owner_id].name}}</td>
+        <span class="fa fa-user"></span> {{usersDB[event.owner_id].name}}</td>
       <td>
-        <span class="glyphicon glyphicon-map-marker"></span> {{event.city}}, {{event.address}}</td>
+        <span class="fa fa-map-marker"></span> {{event.city}}, {{event.address}}</td>
       <td>
-        <span class="glyphicon glyphicon-heart"></span> {{event.going}} People are going</td>
+        <span class="fa fa-heart"></span> {{event.going}} People are going</td>
       <td>
-        <button *ngIf="event.owner_id !== usersDB[loggedUser].id" type="button" class="btn btn-primary">
-          <span class="glyphicon glyphicon-ok"></span>
+        <button (click)="checkEvent(event)" *ngIf="event.owner_id !== usersDB[loggedUser].id && event.checkedBy.indexOf(loggedUser) === -1"
+          type="button" class="btn btn-primary">
+          <span class="fa fa-check"></span>
         </button>
-        <button *ngIf="event.owner_id === usersDB[loggedUser].id" type="button" class="btn btn-warning">
-          <span class="glyphicon glyphicon-pencil"></span>
+        <button (click)="uncheckEvent(event)" *ngIf="event.owner_id !== usersDB[loggedUser].id && event.checkedBy.indexOf(loggedUser) > -1"
+          type="button" class="btn btn-outline-secondary">
+          <span class="fa fa-remove"></span>
         </button>
+        <button data-toggle="modal" data-target="#editModal" *ngIf="event.owner_id === usersDB[loggedUser].id" type="button" class="btn btn-warning">
+          <span class="fa fa-pencil"></span>
+        </button>
+        <div *ngIf="event.owner_id === usersDB[loggedUser].id" id="editModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="#editModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Event</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="input-group input-group-lg">
+                  <span class="input-group-addon">
+                    <span class="fa fa-bookmark"></span>
+                  </span>
+                  <input [(ngModel)]="event.name" type="text" class="form-control" placeholder="Event's Name" aria-describedby="sizing-addon1">
+                </div>
+                <div class="input-group input-group-lg">
+                  <span class="input-group-addon">
+                    <span class="fa fa-info"></span>
+                  </span>
+                  <input [(ngModel)]="event.description" type="text" class="form-control" placeholder="Event's Description" aria-describedby="sizing-addon1">
+                </div>
+                <div class="input-group input-group-lg">
+                  <span class="input-group-addon">
+                    <span class="fa fa-clock-o"></span>
+                  </span>
+                  <input [(ngModel)]="event.time" type="time" class="form-control" placeholder="Event's Time" aria-describedby="sizing-addon1">
+                </div>
+                <div class="input-group input-group-lg">
+                  <span class="input-group-addon">
+                    <span class="fa fa-map-marker"></span>
+                  </span>
+                  <input [(ngModel)]="event.city" type="text" class="form-control" placeholder="Event's City" aria-describedby="sizing-addon1">
+                </div>
+                <div class="input-group input-group-lg">
+                  <span class="input-group-addon">
+                    <span class="fa fa-location-arrow"></span>
+                  </span>
+                  <input [(ngModel)]="event.address" type="text" class="form-control" placeholder="Event's Address" aria-describedby="sizing-addon1">
+                </div>
+                <div class="input-group input-group-lg">
+                  <span class="input-group-addon">
+                    <span class="fa fa-calendar"></span>
+                  </span>
+                  <input [(ngModel)]="event.date" type="date" class="form-control" placeholder="Event's Date" aria-describedby="sizing-addon1">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button (click)="cancelEdit()" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button (click)="editEvent(event)" data-dismiss="modal" type="button" class="btn btn-primary">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
         <button *ngIf="event.owner_id !== usersDB[loggedUser].id" type="button" class="btn btn-danger" (click)="moveToTrash(event)">
-          <span class="glyphicon glyphicon-trash"></span>
+          <span class="fa fa-trash"></span>
         </button>
         <div *ngIf="event.owner_id === usersDB[loggedUser].id" class="btn-group">
-          <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
-            <span class="glyphicon glyphicon-remove"></span>
+          <button type="button" class="btn btn-danger" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="fa fa-remove"></span>
           </button>
-          <ul class="dropdown-menu">
-            <li><a (click)="deleteEvent(event)" href="#"><span class="glyphicon glyphicon-remove"></span> Confirm Deletion</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-menu-left"></span> Cancel</a></li>
-          </ul>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" (click)="deleteEvent(event)">
+              Confirm Deletion
+              <span class="fa fa-remove"></span>
+            </a>
+            <a class="dropdown-item">
+              Cancel
+              <span class="fa fa-angle-left"></span>
+            </a>
+          </div>
         </div>
-        <button type="button" class="btn btn-default">
-          <span class="glyphicon glyphicon-option-horizontal"></span>
+        <button type="button" class="btn btn-outline-secondary">
+          <span class="fa fa-ellipsis-h"></span>
         </button>
       </td>
     </tr>
   </table>
-  <table class="table table-hover table-striped" *ngIf="trashToggle === true">
+  <table class="table table-striped" *ngIf="trashToggle === true">
     <tr>
       <th></th>
       <th>Date & Time</th>
@@ -63,7 +129,7 @@
       <th>Event's Partecipants</th>
       <th></th>
     </tr>
-    <tr *ngFor="let event of eventsDB | viewTrash">
+    <tr *ngFor="let event of eventsDB | viewTrash: usersDB">
       <td class="bg-danger"></td>
       <td>
         <div class="calendar">
@@ -73,24 +139,23 @@
         </div>
       </td>
       <td>
-        <span class="glyphicon glyphicon-bookmark"></span> {{event.name}}</td>
+        <span class="fa fa-bookmark"></span> {{event.name}}</td>
       <td>
-        <span class="glyphicon glyphicon-user"></span> {{usersDB[event.owner_id].name}}</td>
+        <span class="fa fa-user"></span> {{usersDB[event.owner_id].name}}</td>
       <td>
-        <span class="glyphicon glyphicon-map-marker"></span> {{event.city}}, {{event.address}}</td>
+        <span class="fa fa-map-marker"></span> {{event.city}}, {{event.address}}</td>
       <td>
-        <span class="glyphicon glyphicon-heart"></span> {{event.going}} People are going</td>
+        <span class="fa fa-heart"></span> {{event.going}} People are going</td>
       <td>
         <button (click)="restoreEvent(event)" type="button" class="btn btn-primary">
-          <span class="glyphicon glyphicon-repeat"></span>
+          <span class="fa fa-repeat"></span>
         </button>
-        <button type="button" class="btn btn-danger" (click)="moveToTrash(event)">
-          <span class="glyphicon glyphicon-remove"></span>
-        </button>
-        <button type="button" class="btn btn-default">
-          <span class="glyphicon glyphicon-option-horizontal"></span>
+        <button type="button" class="btn btn-outline-secondary">
+          <span class="fa fa-ellipsis-h"></span>
         </button>
       </td>
     </tr>
   </table>
 </div>
+
+<app-footer></app-footer>

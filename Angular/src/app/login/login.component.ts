@@ -1,16 +1,21 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { User } from '../user.module';
+
+import { HttpClient } from '@angular/common/http';
+
+import { Router } from '@angular/router';
+import { DatabaseService } from '../database.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.css']
 
 })
-export class LoginComponent {
-  @Input()
+export class LoginComponent implements OnInit {
   usersDB: User[];
+
   loginFail: string;
   inputEmail: string;
   inputPassword: any;
@@ -18,15 +23,30 @@ export class LoginComponent {
   validation: boolean;
   failEmail: boolean;
   failPsw: boolean;
-  sessionStatus: string;
+  sessionStatus: number;
   remember: string;
   forgot: boolean;
   button: string;
 
-  constructor() {
-    this.sessionStatus = "0";
-    sessionStorage.setItem("sessionStatus", this.sessionStatus);
+  constructor(private http: HttpClient, private databaseService: DatabaseService, private router: Router) {
     this.remember = 'Forgot your password?';
+  }
+
+  ngOnInit() {
+    if (sessionStorage.getItem("loggedUser")) {
+      this.router.navigate(["/home"]);
+    }
+    if (this.databaseService.GetUsers() === undefined) {
+      let getDB = setInterval(() => {
+        if (this.databaseService.GetUsers() !== undefined) {
+          this.usersDB = this.databaseService.GetUsers();
+          clearInterval(getDB);
+        }
+      }, 1000);
+    }
+    else {
+      this.usersDB = this.databaseService.GetUsers();
+    }
   }
 
   public logIn() {
@@ -43,10 +63,8 @@ export class LoginComponent {
         this.validation = true;
         this.failEmail = false;
         this.failPsw = false;
-        this.sessionStatus = "1";
-        sessionStorage.setItem("sessionStatus", this.sessionStatus);
-        sessionStorage.setItem("loggedUser", this.usersDB[i].id.toString());
-        location.reload();
+        this.router.navigate(["/home"]);
+        sessionStorage.setItem("loggedUser", this.usersDB[i].hash.toString());
         break;
       } else if (this.usersDB[i].email == this.inputEmail) {
         this.failPsw = true;
@@ -66,18 +84,19 @@ export class LoginComponent {
     this.forgot = true;
     this.validation = true;
   }
+
   public send() {
     for (var i = 0; i < this.usersDB.length; i++) {
       if (this.usersDB[i].email == this.inputEmail) {
         this.failEmail = false;
         this.failPsw = false;
-        this.remember = "We" + "'" + "ve sent you an email ! ";
+        this.remember = "We've sent you an email!";
         break;
       } else if (this.usersDB[i].email !== this.inputEmail) {
-          this.failEmail = true;
-          this.failPsw = false;
-          this.remember = "Insert valid email!";
-        }
+        this.failEmail = true;
+        this.failPsw = false;
+        this.remember = "Insert valid email!";
+      }
     }
   }
 }

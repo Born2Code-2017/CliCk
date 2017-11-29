@@ -6,4 +6,5 @@ export class User {
     age: number;
     job: string;
     name: string;
+    hash: string;
 }

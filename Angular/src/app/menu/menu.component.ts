@@ -1,5 +1,7 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { User } from '../user.module';
+import { DatabaseService } from '../database.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -7,42 +9,59 @@ import { User } from '../user.module';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  @Input() usersDB: User[];
+  usersDB: User[];
+
   public loggedUser: string;
   public sessionStatus: string;
   public avatar: string;
+  public trashToggle: boolean;
 
-  @Output() trashToggleOutput: EventEmitter<any> = new EventEmitter();
+  @Output() trashToggleOutput: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor() {
+  constructor(private databaseService: DatabaseService, private router: Router) {
   }
 
   ngOnInit() {
-    this.loggedUser = sessionStorage.getItem("loggedUser");
-    let loggedUserName = this.usersDB[this.loggedUser].name;
-    this.avatar = loggedUserName.substring(0, loggedUserName.indexOf(" ")).toLowerCase() + ".jpg";
+
+    if (this.databaseService.GetUsers() === undefined) {
+      let getDB = setInterval(() => {
+        if (this.databaseService.GetUsers() !== undefined) {
+          this.usersDB = this.databaseService.GetUsers();
+          this.usersDB = this.databaseService.GetUsers();
+          this.loggedUser = sessionStorage.getItem("loggedUser");
+          this.loggedUser = this.databaseService.GetLoggedUser(sessionStorage.getItem("loggedUser"));
+          let loggedUserName = this.usersDB[this.loggedUser].name;
+          this.avatar = loggedUserName.substring(0, loggedUserName.indexOf(" ")).toLowerCase() + ".jpg";
+          clearInterval(getDB);
+        }
+      }, 1000);
+    }
+    else {
+      this.usersDB = this.databaseService.GetUsers();
+      this.usersDB = this.databaseService.GetUsers();
+      this.loggedUser = sessionStorage.getItem("loggedUser");
+      this.loggedUser = this.databaseService.GetLoggedUser(sessionStorage.getItem("loggedUser"));
+      let loggedUserName = this.usersDB[this.loggedUser].name;
+      this.avatar = loggedUserName.substring(0, loggedUserName.indexOf(" ")).toLowerCase() + ".jpg";
+    }
   }
 
   public goHome() {
-    this.updateSessionStatus("1");
+    this.router.navigate(["/home"]);
   }
 
   public newEvent() {
-    this.updateSessionStatus("2");
+    this.router.navigate(["/new-event"]);
   }
 
   public viewTrash() {
-    this.trashToggleOutput.emit(null);
+    this.router.navigate(["/home"]);
+    this.trashToggle = !this.trashToggle;
+    this.trashToggleOutput.emit(!this.trashToggle);
   }
 
   public logOut() {
-    this.updateSessionStatus("0");
+    sessionStorage.clear();
+    this.router.navigate(["/login"]);
   }
-
-  public updateSessionStatus(n: string) {
-    this.sessionStatus = n;
-    sessionStorage.setItem("sessionStatus", this.sessionStatus);
-    location.reload();
-  }
-
 }

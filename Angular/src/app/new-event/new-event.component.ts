@@ -1,7 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Event } from '../event.module';
+import { Event, DBToMD5 } from '../event.module';
+import { User } from '../user.module';
 
 import { HttpClient } from '@angular/common/http';
+import { DatabaseService } from '../database.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-event',
@@ -9,13 +12,12 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./new-event.component.css']
 })
 export class NewEventComponent implements OnInit {
-  @Input() eventsDB: Event[];
-
+  eventsDB: Event[];
+  usersDB: User[];
   event: Event;
-  
-  @Output() trashEventHide: EventEmitter<any> = new EventEmitter();
+  loggedUser: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private databaseService: DatabaseService, private router: Router) {
     this.event = {
       owner_id: undefined,
       date: '',
@@ -32,19 +34,53 @@ export class NewEventComponent implements OnInit {
   }
 
   ngOnInit() {
-    sessionStorage.setItem("sessionStatus", "1");
-    this.event.owner_id = parseInt(sessionStorage.getItem('loggedUser'), 10);
+    if (!sessionStorage.getItem("loggedUser")) {
+      this.router.navigate(["/login"]);
+    }
+    let currentStorage = localStorage.getItem("eventsDBHash");
+    if (currentStorage) {
+      this.http.get("https://click-e25d0.firebaseio.com/click.json").subscribe(data => {
+        let eventsDBHash = data["hashes"];
+        if (eventsDBHash[0] === JSON.parse(currentStorage)[0]) {
+          let localEventDB = localStorage.getItem("eventsDB");
+          this.eventsDB = JSON.parse(localEventDB);
+          this.databaseService.SetEvents(this.eventsDB);
+          this.usersDB = this.databaseService.GetUsers();
+          this.loggedUser = this.databaseService.GetLoggedUser(sessionStorage.getItem("loggedUser"));
+          this.event.owner_id = parseInt(this.loggedUser, 10);
+          this.event.id = this.eventsDB.length;
+          console.log("Local Storage");
+        }
+        else {
+          console.log("Different Hash")
+        }
+      });
+    }
+    else {
+      let getDB = setInterval(() => {
+        if (this.databaseService.GetUsers() !== undefined && this.databaseService.GetEvents() !== undefined) {
+          this.usersDB = this.databaseService.GetUsers();
+          this.eventsDB = this.databaseService.GetEvents();
+          this.loggedUser = this.databaseService.GetLoggedUser(sessionStorage.getItem("loggedUser"));
+          this.event.owner_id = parseInt(this.loggedUser, 10);
+          this.event.id = this.eventsDB.length;
+          clearInterval(getDB);
+        }
+      }, 1000);
+      console.log("No DB");
+    }
     this.event.going = Math.floor((Math.random() * 1000) + 1);
-    this.event.id = this.eventsDB.length;
   }
 
-  createEvent(owner_id, date, time, name, city, address, going, description) {
+  goHome() {
+    this.router.navigate(["/home"]);
+  }
+
+  createEvent() {
     this.eventsDB.push(this.event);
-    this.trashEventHide.emit(this.eventsDB);
-    let request = this.http.put("https://click-e25d0.firebaseio.com/click/events.json/", JSON.stringify(this.eventsDB));
-    request.subscribe(data => {
-      location.reload();
-    });
+    this.databaseService.SetEvents(this.eventsDB);
+    DBToMD5(this);
+    this.databaseService.sendDB(this.router.navigate(["/home"]));
   }
 
 

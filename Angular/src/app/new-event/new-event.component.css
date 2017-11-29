@@ -1,4 +1,4 @@
-.container:first-child {
+.container:nth-child(2) {
     padding:20px !important;
     margin-top:50px !important;
     border:1px solid white;
@@ -6,7 +6,7 @@
     background: white;
 }
 
-.container:last-child {
+.container:nth-child(3) {
     padding:0 !important;
     margin-top:50px !important;
     margin-bottom:200px !important;

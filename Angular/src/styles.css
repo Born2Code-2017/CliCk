@@ -6,7 +6,8 @@ html {
 }
 
 body {
-    font-family: 'Cuprum', sans-serif !important;
+    font-family: 'Cuprum' !important;
+    font-size:14px !important;
     background-image: url("assets/bg2.png");
     min-height:100%;
     overflow-y: scroll;

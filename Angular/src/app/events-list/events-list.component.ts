@@ -1,9 +1,14 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 import { User } from '../user.module';
-import { Event } from '../event.module';
+import { Event, DBToMD5 } from '../event.module';
 
 import { HttpClient } from '@angular/common/http';
+
+import { DatabaseService } from '../database.service';
+import { Router } from '@angular/router';
+
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-events-list',
@@ -12,21 +17,106 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class EventsListComponent implements OnInit {
-  @Input() usersDB: User[];
-  @Input() eventsDB: Event[];
-  @Input() trashToggle: boolean;
-  public loggedUser: string;
+  usersDB: User[];
+  eventsDB: Event[];
+  loggedUser: string;
+  trashToggle: boolean;
 
-  @Output() trashEventOutput: EventEmitter<any> = new EventEmitter();
-
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private databaseService: DatabaseService, private router: Router) {
+    this.trashToggle = false;
   }
 
   ngOnInit() {
-    this.loggedUser = sessionStorage.getItem("loggedUser");
+    if (!sessionStorage.getItem("loggedUser")) {
+      this.router.navigate(["/login"]);
+    }
+    let currentStorage = localStorage.getItem("eventsDBHash");
+    if (currentStorage) {
+      this.http.get("https://click-e25d0.firebaseio.com/click.json").subscribe(data => {
+        let eventsDBHash = data["hashes"];
+        if (eventsDBHash[0] === JSON.parse(currentStorage)[0]) {
+          let localEventDB = localStorage.getItem("eventsDB");
+          this.eventsDB = JSON.parse(localEventDB);
+          this.databaseService.SetEvents(this.eventsDB);
+          this.usersDB = this.databaseService.GetUsers();
+          this.loggedUser = this.databaseService.GetLoggedUser(sessionStorage.getItem("loggedUser"));
+          console.log("Local Storage");
+        }
+        else {
+          console.log("Different Hash")
+        }
+      });
+    }
+    else {
+      let getDB = setInterval(() => {
+        if (this.databaseService.GetUsers() !== undefined && this.databaseService.GetEvents() !== undefined) {
+          this.usersDB = this.databaseService.GetUsers();
+          this.eventsDB = this.databaseService.GetEvents();
+          this.loggedUser = this.databaseService.GetLoggedUser(sessionStorage.getItem("loggedUser"));
+          clearInterval(getDB);
+        }
+      }, 1000);
+      console.log("No DB");
+    }
+    if (this.usersDB === undefined) {
+      let getDB = setInterval(() => {
+        if (this.databaseService.GetUsers() !== undefined) {
+          this.usersDB = this.databaseService.GetUsers();
+          this.loggedUser = this.databaseService.GetLoggedUser(sessionStorage.getItem("loggedUser"));
+          clearInterval(getDB);
+        }
+      }, 1000);
+    }
+    /*if (this.usersDB === undefined || this.eventsDB === undefined) {
+      let getDB = setInterval(() => {
+        if (this.databaseService.GetUsers() !== undefined && this.databaseService.GetEvents() !== undefined) {
+          this.usersDB = this.databaseService.GetUsers();
+          this.eventsDB = this.databaseService.GetEvents();
+          this.loggedUser = this.databaseService.GetLoggedUser(sessionStorage.getItem("loggedUser"));
+          clearInterval(getDB);
+        }
+      }, 1000);
+      console.log("No DB");
+    }
+    else {
+      this.eventsDB = this.databaseService.GetEvents();
+      this.usersDB = this.databaseService.GetUsers();
+      this.loggedUser = this.databaseService.GetLoggedUser(sessionStorage.getItem("loggedUser"));
+    }*/
+  }
+
+  trashToggleInput(payload) {
+    this.trashToggle = payload;
+  }
+
+  editEvent(event) {
+    this.pushToEventsDB();
+  }
+
+  cancelEdit() {
+    let localEventDB = localStorage.getItem("eventsDB");
+    this.eventsDB = JSON.parse(localEventDB);
+  }
+
+  checkEvent(event) {
+    event.checkedBy.push(this.loggedUser);
+    event.going++;
+    this.pushToEventsDB();
+  }
+
+  uncheckEvent(event) {
+    let index = event.checkedBy.indexOf(this.loggedUser);
+    event.checkedBy.splice(index, 1);
+    event.going--;
+    this.pushToEventsDB();
   }
 
   moveToTrash(event) {
+    let index = event.checkedBy.indexOf(this.loggedUser);
+    if (index > -1) {
+      event.checkedBy.splice(index, 1);
+      event.going--;
+    }
     event.trashedBy.push(this.loggedUser);
     this.pushToEventsDB();
   }
@@ -38,7 +128,6 @@ export class EventsListComponent implements OnInit {
   }
 
   deleteEvent(event) {
-    console.log("hey");
     this.eventsDB.splice(event.id, 1);
     let i = 0;
     for (let event of this.eventsDB) {
@@ -49,13 +138,13 @@ export class EventsListComponent implements OnInit {
   }
 
   pushToEventsDB() {
-    this.trashEventOutput.emit(this.eventsDB);
-    let request = this.http.put("https://click-e25d0.firebaseio.com/click/events.json/", JSON.stringify(this.eventsDB));
-    request.subscribe();
+    this.databaseService.SetEvents(this.eventsDB);
+    DBToMD5(this);
+    this.databaseService.sendDB(null);
   }
 
   monthConversion(date) {
-    var month = date.substring(3, 5);
+    var month = date.substring(5, 7);
 
     switch (month) {
       case "01":

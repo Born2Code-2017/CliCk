@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform, Input } from '@angular/core';
+import { User } from '../user.module';
 
 @Pipe({
     name: 'viewTrash',
@@ -6,8 +7,9 @@ import { Pipe, PipeTransform, Input } from '@angular/core';
 })
 
 export class ViewTrash implements PipeTransform {
-    transform(eventsDB) {
+    transform(eventsDB, usersDB) {
         let loggedUser = sessionStorage.getItem("loggedUser");
+        loggedUser = usersDB.findIndex(x => x.hash === loggedUser).toString();
         let tempDB = [];
 
         for (let i = 0; i < eventsDB.length; i++) {
