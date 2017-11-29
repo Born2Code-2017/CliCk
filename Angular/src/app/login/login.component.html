@@ -24,7 +24,8 @@
                     <p *ngIf="!validation" class="form-alert"> {{ loginFail }}</p>
                     <div class="forgot-psw">
                         <a *ngIf="!forgot" (click)="forgotPsw()">{{ remember }}</a>
-                        <p *ngIf="forgot" [class.forgot-alert]="failEmail === true"> {{ forgotFail }}</p>
+                        <p *ngIf="forgot" [class.forgot-alert]="failEmail === true"> {{ forgotFail }}<br><a *ngIf="!failEmail" (click)="goBack()"> Go back</a></p>
+                        
                     </div>
                 </form>
             </div>

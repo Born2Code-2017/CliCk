@@ -93,6 +93,7 @@ export class LoginComponent implements OnInit {
         this.failEmail = false;
         this.failPsw = false;
         this.forgotFail = "We've sent you an email!";
+        
         break;
       } else if (this.usersDB[i].email !== this.inputEmail) {
         this.failEmail = true;
@@ -100,5 +101,8 @@ export class LoginComponent implements OnInit {
         this.forgotFail = "Insert an existing email!";
       }
     }
+  }
+  public goBack(){
+        this.forgot = false;
   }
 }
