@@ -12,5 +12,7 @@ In order to be able to access Click you need to enter your email and password in
 ## Screenshots
 
 <img src="https://user-images.githubusercontent.com/32071980/33380110-48cb74ee-d51a-11e7-98e0-ebd244d36578.png" alt="Login" width="300">
+
 ![homepage](https://user-images.githubusercontent.com/32071980/33380109-48ac475e-d51a-11e7-8e32-84bcfe5c83d8.png)
+
 ![newevent](https://user-images.githubusercontent.com/32071980/33380115-4923afd8-d51a-11e7-8543-47cc4bc66fda.png)
