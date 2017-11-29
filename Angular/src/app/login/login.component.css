@@ -66,7 +66,7 @@ input {
 .fail-email, .fail-psw {
     border-color: red; 
 }
-.form-alert{
+.form-alert, .forgot-alert{
     color: red;
     margin-bottom: 10px;
 }

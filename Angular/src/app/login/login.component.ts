@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   usersDB: User[];
 
   loginFail: string;
+  forgotFail: string;
   inputEmail: string;
   inputPassword: any;
   name: string;
@@ -75,12 +76,13 @@ export class LoginComponent implements OnInit {
         this.failEmail = true;
         this.failPsw = false;
         this.validation = false;
-        this.loginFail = "Insert valid email!";
+        this.loginFail = "Insert an existing email!";
       }
     }
   }
 
   public forgotPsw() {
+    this.failEmail = false;
     this.forgot = true;
     this.validation = true;
   }
@@ -90,12 +92,12 @@ export class LoginComponent implements OnInit {
       if (this.usersDB[i].email == this.inputEmail) {
         this.failEmail = false;
         this.failPsw = false;
-        this.remember = "We've sent you an email!";
+        this.forgotFail = "We've sent you an email!";
         break;
       } else if (this.usersDB[i].email !== this.inputEmail) {
         this.failEmail = true;
         this.failPsw = false;
-        this.remember = "Insert valid email!";
+        this.forgotFail = "Insert an existing email!";
       }
     }
   }

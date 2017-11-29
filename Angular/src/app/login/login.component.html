@@ -23,7 +23,8 @@
                     <button *ngIf="forgot" (click)="send()" type="button" class="btn btn-block">Send</button>
                     <p *ngIf="!validation" class="form-alert"> {{ loginFail }}</p>
                     <div class="forgot-psw">
-                        <a (click)="forgotPsw()">{{ remember }}</a>
+                        <a *ngIf="!forgot" (click)="forgotPsw()">{{ remember }}</a>
+                        <p *ngIf="forgot" [class.forgot-alert]="failEmail === true"> {{ forgotFail }}</p>
                     </div>
                 </form>
             </div>
