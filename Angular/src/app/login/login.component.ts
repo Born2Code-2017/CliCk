@@ -30,24 +30,14 @@ export class LoginComponent implements OnInit {
   button: string;
 
   constructor(private http: HttpClient, private databaseService: DatabaseService, private router: Router) {
+    if (!this.databaseService.loaded) {
+      this.router.navigate(["/loading"]);
+    }
     this.remember = 'Forgot your password?';
   }
 
   ngOnInit() {
-    if (sessionStorage.getItem("loggedUser")) {
-      this.router.navigate(["/home"]);
-    }
-    if (this.databaseService.GetUsers() === undefined) {
-      let getDB = setInterval(() => {
-        if (this.databaseService.GetUsers() !== undefined) {
-          this.usersDB = this.databaseService.GetUsers();
-          clearInterval(getDB);
-        }
-      }, 1000);
-    }
-    else {
-      this.usersDB = this.databaseService.GetUsers();
-    }
+    this.usersDB = this.databaseService.GetUsers();
   }
 
   public logIn() {
@@ -93,7 +83,7 @@ export class LoginComponent implements OnInit {
         this.failEmail = false;
         this.failPsw = false;
         this.forgotFail = "We've sent you an email!";
-        
+
         break;
       } else if (this.usersDB[i].email !== this.inputEmail) {
         this.failEmail = true;
@@ -102,7 +92,7 @@ export class LoginComponent implements OnInit {
       }
     }
   }
-  public goBack(){
-        this.forgot = false;
+  public goBack() {
+    this.forgot = false;
   }
 }

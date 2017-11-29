@@ -18,6 +18,9 @@ export class NewEventComponent implements OnInit {
   loggedUser: string;
 
   constructor(private http: HttpClient, private databaseService: DatabaseService, private router: Router) {
+    if (!this.databaseService.loaded) {
+      this.router.navigate(["/loading"], { queryParams: { page: "/new-event" } });
+    }
     this.event = {
       owner_id: undefined,
       date: '',
@@ -34,41 +37,11 @@ export class NewEventComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!sessionStorage.getItem("loggedUser")) {
-      this.router.navigate(["/login"]);
-    }
-    let currentStorage = localStorage.getItem("eventsDBHash");
-    if (currentStorage) {
-      this.http.get("https://click-e25d0.firebaseio.com/click.json").subscribe(data => {
-        let eventsDBHash = data["hashes"];
-        if (eventsDBHash[0] === JSON.parse(currentStorage)[0]) {
-          let localEventDB = localStorage.getItem("eventsDB");
-          this.eventsDB = JSON.parse(localEventDB);
-          this.databaseService.SetEvents(this.eventsDB);
-          this.usersDB = this.databaseService.GetUsers();
-          this.loggedUser = this.databaseService.GetLoggedUser(sessionStorage.getItem("loggedUser"));
-          this.event.owner_id = parseInt(this.loggedUser, 10);
-          this.event.id = this.eventsDB.length;
-          console.log("Local Storage");
-        }
-        else {
-          console.log("Different Hash")
-        }
-      });
-    }
-    else {
-      let getDB = setInterval(() => {
-        if (this.databaseService.GetUsers() !== undefined && this.databaseService.GetEvents() !== undefined) {
-          this.usersDB = this.databaseService.GetUsers();
-          this.eventsDB = this.databaseService.GetEvents();
-          this.loggedUser = this.databaseService.GetLoggedUser(sessionStorage.getItem("loggedUser"));
-          this.event.owner_id = parseInt(this.loggedUser, 10);
-          this.event.id = this.eventsDB.length;
-          clearInterval(getDB);
-        }
-      }, 1000);
-      console.log("No DB");
-    }
+    this.usersDB = this.databaseService.GetUsers();
+    this.eventsDB = this.databaseService.GetEvents();
+    this.loggedUser = this.databaseService.GetLoggedUser(sessionStorage.getItem("loggedUser"));
+    this.event.owner_id = parseInt(this.loggedUser, 10);
+    this.event.id = this.eventsDB.length;
     this.event.going = Math.floor((Math.random() * 1000) + 1);
   }
 

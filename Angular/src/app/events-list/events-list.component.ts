@@ -23,66 +23,16 @@ export class EventsListComponent implements OnInit {
   trashToggle: boolean;
 
   constructor(private http: HttpClient, private databaseService: DatabaseService, private router: Router) {
+    if (!databaseService.loaded) {
+      router.navigate(["/loading"], { queryParams: { page: "/home" } });
+    }
     this.trashToggle = false;
   }
 
   ngOnInit() {
-    if (!sessionStorage.getItem("loggedUser")) {
-      this.router.navigate(["/login"]);
-    }
-    let currentStorage = localStorage.getItem("eventsDBHash");
-    if (currentStorage) {
-      this.http.get("https://click-e25d0.firebaseio.com/click.json").subscribe(data => {
-        let eventsDBHash = data["hashes"];
-        if (eventsDBHash[0] === JSON.parse(currentStorage)[0]) {
-          let localEventDB = localStorage.getItem("eventsDB");
-          this.eventsDB = JSON.parse(localEventDB);
-          this.databaseService.SetEvents(this.eventsDB);
-          this.usersDB = this.databaseService.GetUsers();
-          this.loggedUser = this.databaseService.GetLoggedUser(sessionStorage.getItem("loggedUser"));
-          console.log("Local Storage");
-        }
-        else {
-          console.log("Different Hash")
-        }
-      });
-    }
-    else {
-      let getDB = setInterval(() => {
-        if (this.databaseService.GetUsers() !== undefined && this.databaseService.GetEvents() !== undefined) {
-          this.usersDB = this.databaseService.GetUsers();
-          this.eventsDB = this.databaseService.GetEvents();
-          this.loggedUser = this.databaseService.GetLoggedUser(sessionStorage.getItem("loggedUser"));
-          clearInterval(getDB);
-        }
-      }, 1000);
-      console.log("No DB");
-    }
-    if (this.usersDB === undefined) {
-      let getDB = setInterval(() => {
-        if (this.databaseService.GetUsers() !== undefined) {
-          this.usersDB = this.databaseService.GetUsers();
-          this.loggedUser = this.databaseService.GetLoggedUser(sessionStorage.getItem("loggedUser"));
-          clearInterval(getDB);
-        }
-      }, 1000);
-    }
-    /*if (this.usersDB === undefined || this.eventsDB === undefined) {
-      let getDB = setInterval(() => {
-        if (this.databaseService.GetUsers() !== undefined && this.databaseService.GetEvents() !== undefined) {
-          this.usersDB = this.databaseService.GetUsers();
-          this.eventsDB = this.databaseService.GetEvents();
-          this.loggedUser = this.databaseService.GetLoggedUser(sessionStorage.getItem("loggedUser"));
-          clearInterval(getDB);
-        }
-      }, 1000);
-      console.log("No DB");
-    }
-    else {
-      this.eventsDB = this.databaseService.GetEvents();
-      this.usersDB = this.databaseService.GetUsers();
-      this.loggedUser = this.databaseService.GetLoggedUser(sessionStorage.getItem("loggedUser"));
-    }*/
+    this.usersDB = this.databaseService.GetUsers();
+    this.eventsDB = this.databaseService.GetEvents();
+    this.loggedUser = this.databaseService.GetLoggedUser(sessionStorage.getItem("loggedUser"));
   }
 
   trashToggleInput(payload) {

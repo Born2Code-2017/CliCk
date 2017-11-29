@@ -22,28 +22,10 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    if (this.databaseService.GetUsers() === undefined) {
-      let getDB = setInterval(() => {
-        if (this.databaseService.GetUsers() !== undefined) {
-          this.usersDB = this.databaseService.GetUsers();
-          this.usersDB = this.databaseService.GetUsers();
-          this.loggedUser = sessionStorage.getItem("loggedUser");
-          this.loggedUser = this.databaseService.GetLoggedUser(sessionStorage.getItem("loggedUser"));
-          let loggedUserName = this.usersDB[this.loggedUser].name;
-          this.avatar = loggedUserName.substring(0, loggedUserName.indexOf(" ")).toLowerCase() + ".jpg";
-          clearInterval(getDB);
-        }
-      }, 1000);
-    }
-    else {
-      this.usersDB = this.databaseService.GetUsers();
-      this.usersDB = this.databaseService.GetUsers();
-      this.loggedUser = sessionStorage.getItem("loggedUser");
-      this.loggedUser = this.databaseService.GetLoggedUser(sessionStorage.getItem("loggedUser"));
-      let loggedUserName = this.usersDB[this.loggedUser].name;
-      this.avatar = loggedUserName.substring(0, loggedUserName.indexOf(" ")).toLowerCase() + ".jpg";
-    }
+    this.usersDB = this.databaseService.GetUsers();
+    this.loggedUser = this.databaseService.GetLoggedUser(sessionStorage.getItem("loggedUser"));
+    let loggedUserName = this.usersDB[this.loggedUser].name;
+    this.avatar = loggedUserName.substring(0, loggedUserName.indexOf(" ")).toLowerCase() + ".jpg";
   }
 
   public goHome() {

@@ -15,6 +15,8 @@ import { ViewTrash } from './events-list/view-trashed.pipe';
 
 import { Routing } from './app.routing';
 import { DatabaseService } from './database.service';
+import { LoadingComponent } from './loading/loading.component';
+import { ProgressDirective } from './progress.directive';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { DatabaseService } from './database.service';
     NewEventComponent,
     FooterComponent,
     HideTrash,
-    ViewTrash
+    ViewTrash,
+    LoadingComponent,
+    ProgressDirective
   ],
   imports: [
     BrowserModule,

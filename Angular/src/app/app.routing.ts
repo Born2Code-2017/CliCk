@@ -6,10 +6,14 @@ import { MenuComponent } from './menu/menu.component';
 import { EventsListComponent } from './events-list/events-list.component';
 import { NewEventComponent } from './new-event/new-event.component';
 import { FooterComponent } from './footer/footer.component';
+import { LoadingComponent } from './loading/loading.component';
 
 const routes: Routes =
     [{
-        path: "", redirectTo: "/login", pathMatch: "full"
+        path: "", redirectTo: "/loading", pathMatch: "full"
+    },
+    {
+        path: "loading", component: LoadingComponent
     },
     {
         path: "login", component: LoginComponent
