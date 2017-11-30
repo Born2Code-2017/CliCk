@@ -4,64 +4,66 @@
     <h1 class="display-5">New Event</h1>
     <p class="lead">Fill the input fields to create a new event.</p>
     <hr class="my-4">
-    <div class="row">
-      <div class="col-6">
-        <div class="input-group input-group-lg">
-          <span class="input-group-addon" id="sizing-addon1">
-            <span class="fa fa-bookmark"></span>
-          </span>
-          <input [(ngModel)]="event.name" type="text" class="form-control" placeholder="Event's Name" aria-describedby="sizing-addon1">
+    <form>
+      <div class="form-group row">
+        <div class="col-sm-12 col-md-6">
+          <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon1">
+              <span class="fa fa-bookmark"></span>
+            </span>
+            <input [(ngModel)]="event.name" name="name" type="text" class="form-control" placeholder="Event's Name" aria-describedby="sizing-addon1">
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon1">
+              <span class="fa fa-info"></span>
+            </span>
+            <input [(ngModel)]="event.description" name="description" type="text" class="form-control" placeholder="Event's Description"
+              aria-describedby="sizing-addon1">
+          </div>
         </div>
       </div>
-      <div class="col-6">
-        <div class="input-group input-group-lg">
-          <span class="input-group-addon" id="sizing-addon1">
-            <span class="fa fa-info"></span>
-          </span>
-          <input [(ngModel)]="event.description" type="text" class="form-control" placeholder="Event's Description" aria-describedby="sizing-addon1">
+      <div class="form-group row mt-3">
+        <div class="col-sm-12 col-md-3">
+          <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon1">
+              <span class="fa fa-clock-o"></span>
+            </span>
+            <input [(ngModel)]="event.time" name="time" type="time" class="form-control" placeholder="Event's Time" aria-describedby="sizing-addon1">
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-3">
+          <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon1">
+              <span class="fa fa-map-marker"></span>
+            </span>
+            <input [(ngModel)]="event.city" name="city" type="text" class="form-control" placeholder="Event's City" aria-describedby="sizing-addon1">
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-3">
+          <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon1">
+              <span class="fa fa-location-arrow"></span>
+            </span>
+            <input [(ngModel)]="event.address" name="address" type="text" class="form-control" placeholder="Event's Address" aria-describedby="sizing-addon1">
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-3">
+          <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon1">
+              <span class="fa fa-calendar"></span>
+            </span>
+            <input [(ngModel)]="event.date" name="date" type="date" class="form-control" placeholder="Event's Date" aria-describedby="sizing-addon1">
+          </div>
         </div>
       </div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="col-3">
-        <div class="input-group input-group-lg">
-          <span class="input-group-addon" id="sizing-addon1">
-            <span class="fa fa-clock-o"></span>
-          </span>
-          <input [(ngModel)]="event.time" type="time" class="form-control" placeholder="Event's Time" aria-describedby="sizing-addon1">
-        </div>
-      </div>
-      <div class="col-3">
-        <div class="input-group input-group-lg">
-          <span class="input-group-addon" id="sizing-addon1">
-            <span class="fa fa-map-marker"></span>
-          </span>
-          <input [(ngModel)]="event.city" type="text" class="form-control" placeholder="Event's City" aria-describedby="sizing-addon1">
-        </div>
-      </div>
-      <div class="col-3">
-        <div class="input-group input-group-lg">
-          <span class="input-group-addon" id="sizing-addon1">
-            <span class="fa fa-location-arrow"></span>
-          </span>
-          <input [(ngModel)]="event.address" type="text" class="form-control" placeholder="Event's Address" aria-describedby="sizing-addon1">
-        </div>
-      </div>
-      <div class="col-3">
-        <div class="input-group input-group-lg">
-          <span class="input-group-addon" id="sizing-addon1">
-            <span class="fa fa-calendar"></span>
-          </span>
-          <input [(ngModel)]="event.date" type="date" class="form-control" placeholder="Event's Date" aria-describedby="sizing-addon1">
-        </div>
-      </div>
-    </div>
+    </form>
   </div>
-  <div class="container">
+  <div class="container d-flex justify-content-between">
     <button (click)="goHome()" type="button" class="btn btn-outline-secondary btn-lg">
       <span class="fa fa-angle-left"></span> Cancel</button>
-    <button (click)="createEvent()" type="button" class="btn btn-primary btn-lg" style="float:right">
+    <button (click)="createEvent()" type="button" class="btn btn-primary btn-lg">
       <span class="fa fa-plus"></span> Create Event</button>
   </div>
 </div>

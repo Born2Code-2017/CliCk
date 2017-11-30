@@ -23,13 +23,13 @@ export class NewEventComponent implements OnInit {
     }
     this.event = {
       owner_id: undefined,
-      date: '',
-      time: '',
-      name: '',
-      city: '',
-      address: '',
+      date: "",
+      time: "",
+      name: "",
+      city: "",
+      address: "",
       going: undefined,
-      description: '',
+      description: "",
       id: undefined,
       trashedBy: ["-1"],
       checkedBy: ["-1"]
