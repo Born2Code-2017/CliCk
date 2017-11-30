@@ -2,6 +2,7 @@ import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { User } from '../user.module';
 import { DatabaseService } from '../database.service';
 import { Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-menu',
@@ -13,19 +14,18 @@ export class MenuComponent implements OnInit {
 
   public loggedUser: string;
   public sessionStatus: string;
-  public avatar: string;
+  public avatar: any;
   public trashToggle: boolean;
 
   @Output() trashToggleOutput: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor(private databaseService: DatabaseService, private router: Router) {
+  constructor(private databaseService: DatabaseService, private router: Router, private sanitazer: DomSanitizer) {
   }
 
   ngOnInit() {
     this.usersDB = this.databaseService.GetUsers();
     this.loggedUser = this.databaseService.GetLoggedUser(sessionStorage.getItem("loggedUser"));
-    let loggedUserName = this.usersDB[this.loggedUser].name;
-    this.avatar = loggedUserName.substring(0, loggedUserName.indexOf(" ")).toLowerCase() + ".jpg";
+    this.avatar = this.sanitazer.bypassSecurityTrustUrl(this.usersDB[this.loggedUser].avatar);
   }
 
   public goHome() {
@@ -46,4 +46,10 @@ export class MenuComponent implements OnInit {
     sessionStorage.clear();
     this.router.navigate(["/login"]);
   }
+
+  b64DecodeUnicode(str) {
+    return decodeURIComponent(atob(str).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+}
 }

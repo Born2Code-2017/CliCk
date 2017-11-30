@@ -7,4 +7,5 @@ export class User {
     job: string;
     name: string;
     hash: string;
+    avatar: string;
 }

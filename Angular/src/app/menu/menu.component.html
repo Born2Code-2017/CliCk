@@ -38,7 +38,7 @@
     <span class="fa fa-briefcase"></span> {{usersDB[loggedUser].job}}
   </div>
   <div class="col">
-    <img src="../assets/{{avatar}}" width="200" height="200" alt="avatar">
+    <img [src]="avatar" width="200" height="200" alt="avatar">
   </div>
   <div class="col">
     {{usersDB[loggedUser].name}}
