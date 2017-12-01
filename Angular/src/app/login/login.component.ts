@@ -11,11 +11,9 @@ import { DatabaseService } from '../database.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
-
 })
 export class LoginComponent implements OnInit {
   usersDB: User[];
-
   loginFail: string;
   forgotFail: string;
   inputEmail: string;
@@ -71,12 +69,6 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  public forgotPsw() {
-    this.failEmail = false;
-    this.forgot = true;
-    this.validation = true;
-  }
-
   public send() {
     for (var i = 0; i < this.usersDB.length; i++) {
       if (this.usersDB[i].email == this.inputEmail) {
@@ -92,7 +84,16 @@ export class LoginComponent implements OnInit {
       }
     }
   }
+
+  public forgotPsw() {
+    this.failEmail = false;
+    this.forgot = true;
+    this.validation = true;
+  }
+
   public goBack() {
     this.forgot = false;
+    this.failEmail = false;
+    this.failPsw = false;
   }
 }

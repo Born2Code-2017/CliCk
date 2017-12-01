@@ -24,28 +24,28 @@ body {
 /** LOGO CONTAINER **/
 .logo-container {
     margin-bottom: 4%;   
-    padding-top: 15px;
-    border-radius: 0.3em 0.3em 0 0;
+    border-radius: 0.3em;
     background-color: white;
-    border-radius: 0.3em;   
-}
-.logo {
-    border-bottom: 1px solid #cdcdcd;
-    height: 4.5em;     
 }
 .logo img{
-    height: 60px;  
+    height: 60px;
+    margin: 9px 0 5px 0;  
 }
-
 /**** Decoration bar ****/
-.down {
-    display:inherit;
-    background: repeating-linear-gradient( 120deg,
-    #61dcff,
-    #61dcff 1.0em,
-    #5bc7ed 1.0em,
-    #5bc7ed 1.2em);
-    height:2.5em;
+.progress-bar-striped {
+    background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+    background-size: 1rem 1rem;
+}
+.progress-bar {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    color: #fff;
+    background-color: #007bff;
+    height: 40px;
     border-radius: 0 0 0.3em 0.3em;
 }
 /** FORM CONTAINER **/
@@ -57,11 +57,16 @@ form {
     z-index: 1;
 }
 /*** input ***/
-
 input {
     border: 1px solid #cdcdcd;
     border-radius: 0.3em;
-
+    padding-right: 20px;
+}
+.input-group{
+    margin-bottom: 20px;   
+}
+input#name, input#password{  
+    padding-right: 53px;
 }
 .fail-email, .fail-psw {
     border-color: red; 
@@ -73,43 +78,16 @@ input {
 .fail-remember{
     color: red;
 }
-.fa{
-    position: absolute;
-    left: 30px;
-    z-index: 2;
-}
-.fa-envelope{
-    top: 62px;  
-}
-.fa-lock{
-    top:132px;
-    font-size: 23px;
-}
-
 [type="button"] {
-background-color: #61dcff;
 text-align: center;
 height:54px;
+font-size: 18px;
 margin-bottom: 20px;
 }
-
-[type="text"]:hover, [type="password"]:hover {
-    background-color: rgba(97, 221, 255, 0.32);    
-}
-
-[type="button"]:hover {
-    background-color: rgb(0, 197, 228);
-    color: #181818;
-    cursor: pointer;
-}
-
-[type="text"], [type="password"] {
-   
-    text-align: center;
-    margin-bottom: 20px;  
+[type="text"], [type="password"] {   
+    text-align: center;   
     height:54px;
 }
-
 /*** forgot password ***/
 .forgot-psw {    
     font-size: 12px;    
@@ -117,16 +95,14 @@ margin-bottom: 20px;
  form a {
      text-decoration: none;
      color: black;
+     cursor: pointer;
  }
- form a:hover {
-    color: #61dcff;
-    cursor: pointer;
+ .forgot-psw a:hover{
+     color:#007bff;
  }
-
 /**** FOOTER ****/
 footer {
     margin-top: 10%; 
     color: white;
     font-size: 12px;
 }
-

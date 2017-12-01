@@ -5,27 +5,40 @@
                 <div class="logo">
                     <img src="../assets/logo.png" alt="logo">
                 </div>
-                <div class="down"></div>
+                <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" class="progress-bar progress-bar-striped" role="progressbar"></div>
             </div>
             <div>
                 <form novalidate>
-                    <div>
-                        <i class="fa fa-envelope"></i>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon">
+                            <span class="fa fa-envelope "></span>
+                        </span>
                         <input required [(ngModel)]="inputEmail" [class.fail-email]="failEmail === true" class="form-control" type="text" id="name"
                             name="name" placeholder="Enter email">
                     </div>
-                    <div *ngIf="!forgot">
-                        <i class="fa fa-lock"></i>
-                        <input required [(ngModel)]="inputPassword" [class.fail-psw]="failPsw === true" class="form-control" type="password" id="description"
+                    <div *ngIf="!forgot" class="input-group input-group-lg">
+                        <span class="input-group-addon">
+                            <span class="fa fa-key"></span>
+                        </span>
+                        <input required [(ngModel)]="inputPassword" [class.fail-psw]="failPsw === true" class="form-control" type="password" id="password"
                             name="description" placeholder="Enter password">
                     </div>
-                    <button *ngIf="!forgot" (click)="logIn()" type="button" class="btn btn-block">Login</button>
-                    <button *ngIf="forgot" (click)="send()" type="button" class="btn btn-block">Send</button>
+                    <button *ngIf="!forgot" (click)="logIn()" type="button" class="btn btn-block btn-primary">Login</button>
+                    <button *ngIf="forgot" (click)="send()" type="button" class="btn btn-block btn-primary">Send</button>
                     <p *ngIf="!validation" class="form-alert"> {{ loginFail }}</p>
                     <div class="forgot-psw">
+                        <div *ngIf="!forgot" class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input"> Remember me
+                            </label>
+                        </div>
                         <a *ngIf="!forgot" (click)="forgotPsw()">{{ remember }}</a>
-                        <p *ngIf="forgot" [class.forgot-alert]="failEmail === true"> {{ forgotFail }}<br><a *ngIf="!failEmail" (click)="goBack()"> Go back</a></p>
-                        
+                        <div *ngIf="forgot" [class.forgot-alert]="failEmail === true">
+                            <p> {{ forgotFail }}</p>
+                            <p>
+                                <a (click)="goBack()">Go back</a>
+                            </p>
+                        </div>
                     </div>
                 </form>
             </div>
