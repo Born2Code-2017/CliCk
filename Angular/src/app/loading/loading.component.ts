@@ -13,11 +13,14 @@ export class LoadingComponent implements OnInit {
     let getDB = setInterval(() => {
       if (databaseService.GetUsers() && databaseService.GetEvents()) {
         databaseService.loaded = true;
-        if (sessionStorage.getItem("loggedUser")) {
+        if (sessionStorage.getItem("loggedUser") || localStorage.getItem("loggedUser")) {
           let currentRoute: string = "";
           activeRoute.queryParams.subscribe(params => {
             currentRoute = params["page"];
           });
+          if (!currentRoute) {
+            currentRoute = "/home";
+          }
           router.navigate([currentRoute]);
         }
         else {

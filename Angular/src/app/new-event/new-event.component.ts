@@ -39,7 +39,13 @@ export class NewEventComponent implements OnInit {
   ngOnInit() {
     this.usersDB = this.databaseService.GetUsers();
     this.eventsDB = this.databaseService.GetEvents();
-    this.loggedUser = this.databaseService.GetLoggedUser(sessionStorage.getItem("loggedUser"));
+    let session = sessionStorage.getItem("loggedUser");
+    if (session) {
+      this.loggedUser = this.databaseService.GetLoggedUser(session);
+    }
+    else {
+      this.loggedUser = this.databaseService.GetLoggedUser(localStorage.getItem("loggedUser"));
+    }
     this.event.owner_id = parseInt(this.loggedUser, 10);
     this.event.id = this.eventsDB.length;
     this.event.going = Math.floor((Math.random() * 1000) + 1);

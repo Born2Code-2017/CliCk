@@ -1,5 +1,5 @@
 <app-menu (trashToggleOutput)="trashToggleInput($event)"></app-menu>
-<div *ngIf="usersDB && eventsDB" class="container">
+<div class="container">
   <table *ngIf="trashToggle === false" class="table table-striped">
     <tr>
       <th></th>
@@ -10,7 +10,7 @@
       <th>Event's Partecipants</th>
       <th></th>
     </tr>
-    <tr *ngFor="let event of eventsDB | hideTrash: usersDB">
+    <tr *ngFor="let event of eventsDB | hideTrash: usersDB:loggedUser">
       <td *ngIf="event.owner_id !== usersDB[loggedUser].id && event.checkedBy.indexOf(loggedUser) === -1" class="bg-dark"></td>
       <td *ngIf="event.owner_id === usersDB[loggedUser].id && event.checkedBy.indexOf(loggedUser) === -1" class="bg-warning"></td>
       <td *ngIf="event.checkedBy.indexOf(loggedUser) > -1" class="bg-primary"></td>
@@ -129,7 +129,7 @@
       <th>Event's Partecipants</th>
       <th></th>
     </tr>
-    <tr *ngFor="let event of eventsDB | viewTrash: usersDB">
+    <tr *ngFor="let event of eventsDB | viewTrash: usersDB:loggedUser">
       <td class="bg-danger"></td>
       <td>
         <div class="calendar">

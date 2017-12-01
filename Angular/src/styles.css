@@ -8,7 +8,6 @@ html {
 body {
     font-family: 'Cuprum' !important;
     font-size:14px !important;
-    background-image: url("assets/bg2.png");
+    background-image: url("assets/bg.png");
     min-height:100%;
-    overflow-y: scroll;
 }
