@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
   failPsw: boolean;
   sessionStatus: number;
   remember: string;
+  rememberMeLogin: boolean;
   forgot: boolean;
   button: string;
 
@@ -32,6 +33,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(["/loading"]);
     }
     this.remember = 'Forgot your password?';
+    this.rememberMeLogin = false;
   }
 
   ngOnInit() {
@@ -53,7 +55,11 @@ export class LoginComponent implements OnInit {
         this.failEmail = false;
         this.failPsw = false;
         this.router.navigate(["/home"]);
-        sessionStorage.setItem("loggedUser", this.usersDB[i].hash.toString());
+        if (this.rememberMeLogin) {
+          localStorage.setItem("loggedUser", this.usersDB[i].hash.toString());
+        } else {
+          sessionStorage.setItem("loggedUser", this.usersDB[i].hash.toString());
+        }
         break;
       } else if (this.usersDB[i].email == this.inputEmail) {
         this.failPsw = true;

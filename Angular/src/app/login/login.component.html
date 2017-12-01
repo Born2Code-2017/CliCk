@@ -29,7 +29,7 @@
                     <div class="forgot-psw">
                         <div *ngIf="!forgot" class="form-check">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input"> Remember me
+                                <input (change)="rememberMeLogin = !rememberMeLogin" type="checkbox" class="form-check-input" [checked]="rememberMeLogin"> Remember me
                             </label>
                         </div>
                         <a *ngIf="!forgot" (click)="forgotPsw()">{{ remember }}</a>
