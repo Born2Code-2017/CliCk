@@ -1,3 +1,7 @@
+body {
+    overflow-y:scroll;
+}
+
 .container {
     padding:0 !important;
     margin-top:50px !important;

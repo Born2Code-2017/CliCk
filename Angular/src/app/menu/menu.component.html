@@ -1,4 +1,4 @@
-<nav *ngIf="usersDB" class="navbar navbar-expand-md navbar-light bg-faded">
+<nav class="navbar navbar-expand-md navbar-light bg-faded">
   <a (click)="goHome()" class="navbar-brand mr-auto">
     <img src="../assets/logo.png" width="100" height="50" class="d-inline-block align-top" alt="Click">
   </a>
@@ -8,20 +8,24 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
+      <li *ngIf="currentPath === 'home'" class="nav-item">
         <a (click)="viewTrash()" class="nav-link">
           <span class="fa fa-trash"></span> View Trash</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="currentPath === 'home'" class="nav-item">
         <a (click)="newEvent()" class="nav-link">
           <span class="fa fa-plus"></span> New Event</a>
+      </li>
+      <li *ngIf="currentPath !== 'home'" class="nav-item">
+        <a (click)="goHome()" class="nav-link">
+          <span class="fa fa-home"></span> Homepage</a>
       </li>
       <li class="nav-item">
         <a (click)="logOut()" class="nav-link">
           <span class="fa fa-sign-out"></span> Logout</a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
+    <form *ngIf="currentPath === 'home'" class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="text" placeholder="Search">
       <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
     </form>

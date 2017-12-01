@@ -7,9 +7,7 @@ import { User } from '../user.module';
 })
 
 export class ViewTrash implements PipeTransform {
-    transform(eventsDB, usersDB) {
-        let loggedUser = sessionStorage.getItem("loggedUser");
-        loggedUser = usersDB.findIndex(x => x.hash === loggedUser).toString();
+    transform(eventsDB, usersDB, loggedUser) {
         let tempDB = [];
 
         for (let i = 0; i < eventsDB.length; i++) {

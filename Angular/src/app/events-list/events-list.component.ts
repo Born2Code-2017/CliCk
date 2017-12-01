@@ -8,8 +8,6 @@ import { HttpClient } from '@angular/common/http';
 import { DatabaseService } from '../database.service';
 import { Router } from '@angular/router';
 
-import * as $ from 'jquery';
-
 @Component({
   selector: 'app-events-list',
   templateUrl: './events-list.component.html',
@@ -32,7 +30,13 @@ export class EventsListComponent implements OnInit {
   ngOnInit() {
     this.usersDB = this.databaseService.GetUsers();
     this.eventsDB = this.databaseService.GetEvents();
-    this.loggedUser = this.databaseService.GetLoggedUser(sessionStorage.getItem("loggedUser"));
+    let session = sessionStorage.getItem("loggedUser");
+    if (session) {
+      this.loggedUser = this.databaseService.GetLoggedUser(session);
+    }
+    else {
+      this.loggedUser = this.databaseService.GetLoggedUser(localStorage.getItem("loggedUser"));
+    }
   }
 
   trashToggleInput(payload) {
@@ -67,6 +71,7 @@ export class EventsListComponent implements OnInit {
       event.checkedBy.splice(index, 1);
       event.going--;
     }
+    console.log(event);
     event.trashedBy.push(this.loggedUser);
     this.pushToEventsDB();
   }

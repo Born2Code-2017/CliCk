@@ -1,7 +1,7 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { User } from '../user.module';
 import { DatabaseService } from '../database.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -16,16 +16,24 @@ export class MenuComponent implements OnInit {
   public sessionStatus: string;
   public avatar: any;
   public trashToggle: boolean;
+  public currentPath: string;
 
   @Output() trashToggleOutput: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor(private databaseService: DatabaseService, private router: Router, private sanitazer: DomSanitizer) {
+  constructor(private databaseService: DatabaseService, private router: Router, private activeRoute: ActivatedRoute, private sanitazer: DomSanitizer) {
   }
 
   ngOnInit() {
     this.usersDB = this.databaseService.GetUsers();
-    this.loggedUser = this.databaseService.GetLoggedUser(sessionStorage.getItem("loggedUser"));
+    let session = sessionStorage.getItem("loggedUser");
+    if (session) {
+      this.loggedUser = this.databaseService.GetLoggedUser(session);
+    }
+    else {
+      this.loggedUser = this.databaseService.GetLoggedUser(localStorage.getItem("loggedUser"));
+    }
     this.avatar = this.sanitazer.bypassSecurityTrustUrl(this.usersDB[this.loggedUser].avatar);
+    this.currentPath = this.activeRoute.snapshot.url[0].path;
   }
 
   public goHome() {
@@ -37,19 +45,13 @@ export class MenuComponent implements OnInit {
   }
 
   public viewTrash() {
-    this.router.navigate(["/home"]);
     this.trashToggle = !this.trashToggle;
     this.trashToggleOutput.emit(!this.trashToggle);
   }
 
   public logOut() {
     sessionStorage.clear();
+    localStorage.removeItem("loggedUser");
     this.router.navigate(["/login"]);
   }
-
-  b64DecodeUnicode(str) {
-    return decodeURIComponent(atob(str).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-}
 }
