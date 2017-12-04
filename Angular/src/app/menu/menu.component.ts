@@ -21,6 +21,7 @@ export class MenuComponent implements OnInit {
   @Output() trashToggleOutput: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private databaseService: DatabaseService, private router: Router, private activeRoute: ActivatedRoute, private sanitazer: DomSanitizer) {
+    this.trashToggle = false;
   }
 
   ngOnInit() {
@@ -46,7 +47,7 @@ export class MenuComponent implements OnInit {
 
   public viewTrash() {
     this.trashToggle = !this.trashToggle;
-    this.trashToggleOutput.emit(!this.trashToggle);
+    this.trashToggleOutput.emit(this.trashToggle);
   }
 
   public logOut() {

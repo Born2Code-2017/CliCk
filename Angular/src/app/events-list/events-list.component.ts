@@ -19,12 +19,14 @@ export class EventsListComponent implements OnInit {
   eventsDB: Event[];
   loggedUser: string;
   trashToggle: boolean;
+  editID: number;
 
   constructor(private http: HttpClient, private databaseService: DatabaseService, private router: Router) {
     if (!databaseService.loaded) {
       router.navigate(["/loading"], { queryParams: { page: "/home" } });
     }
     this.trashToggle = false;
+    this.editID = -1;
   }
 
   ngOnInit() {
@@ -42,7 +44,7 @@ export class EventsListComponent implements OnInit {
   trashToggleInput(payload) {
     this.trashToggle = payload;
   }
-
+  
   editEvent(event) {
     this.pushToEventsDB();
   }

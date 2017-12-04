@@ -38,63 +38,9 @@
           type="button" class="btn btn-outline-secondary">
           <span class="fa fa-remove"></span>
         </button>
-        <button data-toggle="modal" data-target="#editModal" *ngIf="event.owner_id === usersDB[loggedUser].id" type="button" class="btn btn-warning">
+        <button (click)="editID = event.id" data-toggle="modal" data-target="#editModal" *ngIf="event.owner_id === usersDB[loggedUser].id" type="button" class="btn btn-warning">
           <span class="fa fa-pencil"></span>
         </button>
-        <div *ngIf="event.owner_id === usersDB[loggedUser].id" id="editModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="#editModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Edit Event</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="input-group input-group-lg">
-                  <span class="input-group-addon">
-                    <span class="fa fa-bookmark"></span>
-                  </span>
-                  <input [(ngModel)]="event.name" type="text" class="form-control" placeholder="Event's Name" aria-describedby="sizing-addon1">
-                </div>
-                <div class="input-group input-group-lg">
-                  <span class="input-group-addon">
-                    <span class="fa fa-info"></span>
-                  </span>
-                  <input [(ngModel)]="event.description" type="text" class="form-control" placeholder="Event's Description" aria-describedby="sizing-addon1">
-                </div>
-                <div class="input-group input-group-lg">
-                  <span class="input-group-addon">
-                    <span class="fa fa-clock-o"></span>
-                  </span>
-                  <input [(ngModel)]="event.time" type="time" class="form-control" placeholder="Event's Time" aria-describedby="sizing-addon1">
-                </div>
-                <div class="input-group input-group-lg">
-                  <span class="input-group-addon">
-                    <span class="fa fa-map-marker"></span>
-                  </span>
-                  <input [(ngModel)]="event.city" type="text" class="form-control" placeholder="Event's City" aria-describedby="sizing-addon1">
-                </div>
-                <div class="input-group input-group-lg">
-                  <span class="input-group-addon">
-                    <span class="fa fa-location-arrow"></span>
-                  </span>
-                  <input [(ngModel)]="event.address" type="text" class="form-control" placeholder="Event's Address" aria-describedby="sizing-addon1">
-                </div>
-                <div class="input-group input-group-lg">
-                  <span class="input-group-addon">
-                    <span class="fa fa-calendar"></span>
-                  </span>
-                  <input [(ngModel)]="event.date" type="date" class="form-control" placeholder="Event's Date" aria-describedby="sizing-addon1">
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button (click)="cancelEdit()" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button (click)="editEvent(event)" data-dismiss="modal" type="button" class="btn btn-primary">Save</button>
-              </div>
-            </div>
-          </div>
-        </div>
         <button *ngIf="event.owner_id !== usersDB[loggedUser].id" type="button" class="btn btn-danger" (click)="moveToTrash(event)">
           <span class="fa fa-trash"></span>
         </button>
@@ -119,6 +65,60 @@
       </td>
     </tr>
   </table>
+  <div *ngIf="editID > -1" id="editModal" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static" aria-labelledby="#editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalLabel">Edit Event</h5>
+          <button (click)="cancelEdit()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="input-group input-group-lg">
+            <span class="input-group-addon">
+              <span class="fa fa-bookmark"></span>
+            </span>
+            <input [(ngModel)]="eventsDB[editID].name" type="text" class="form-control" placeholder="Event's Name" aria-describedby="sizing-addon1">
+          </div>
+          <div class="input-group input-group-lg">
+            <span class="input-group-addon">
+              <span class="fa fa-info"></span>
+            </span>
+            <input [(ngModel)]="eventsDB[editID].description" type="text" class="form-control" placeholder="Event's Description" aria-describedby="sizing-addon1">
+          </div>
+          <div class="input-group input-group-lg">
+            <span class="input-group-addon">
+              <span class="fa fa-clock-o"></span>
+            </span>
+            <input [(ngModel)]="eventsDB[editID].time" type="time" class="form-control" placeholder="Event's Time" aria-describedby="sizing-addon1">
+          </div>
+          <div class="input-group input-group-lg">
+            <span class="input-group-addon">
+              <span class="fa fa-map-marker"></span>
+            </span>
+            <input [(ngModel)]="eventsDB[editID].city" type="text" class="form-control" placeholder="Event's City" aria-describedby="sizing-addon1">
+          </div>
+          <div class="input-group input-group-lg">
+            <span class="input-group-addon">
+              <span class="fa fa-location-arrow"></span>
+            </span>
+            <input [(ngModel)]="eventsDB[editID].address" type="text" class="form-control" placeholder="Event's Address" aria-describedby="sizing-addon1">
+          </div>
+          <div class="input-group input-group-lg">
+            <span class="input-group-addon">
+              <span class="fa fa-calendar"></span>
+            </span>
+            <input [(ngModel)]="eventsDB[editID].date" type="date" class="form-control" placeholder="Event's Date" aria-describedby="sizing-addon1">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button (click)="cancelEdit()" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button (click)="editEvent(eventsDB[editID])" data-dismiss="modal" type="button" class="btn btn-primary">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <table class="table table-striped" *ngIf="trashToggle === true">
     <tr>
       <th></th>
