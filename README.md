@@ -8,6 +8,8 @@ By doing so, the organizers of these events will be able to keep track of the nu
 ## Log-in
 
 In order to be able to access Click you need to enter your email and password inside the respective fields, if your datas are correct you'll be redirected to the homepage.
+Email: ilaria.kazuko@email.com
+Psw: japan
 
 ## Screenshots
 
