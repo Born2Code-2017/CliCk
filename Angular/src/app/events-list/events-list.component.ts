@@ -8,10 +8,29 @@ import { HttpClient } from '@angular/common/http';
 import { DatabaseService } from '../database.service';
 import { Router } from '@angular/router';
 
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
+
 @Component({
   selector: 'app-events-list',
   templateUrl: './events-list.component.html',
-  styleUrls: ['./events-list.component.css']
+  styleUrls: ['./events-list.component.css'],
+  animations: [
+    trigger('slideRight', [
+      state('false', style({
+        transform: "scale(2)"
+      })),
+      state('true', style({
+        transform: "scale(1)"
+      })),
+      transition('false => true', animate('500ms ease-in')),
+    ])
+  ]
 })
 
 export class EventsListComponent implements OnInit {
@@ -20,6 +39,7 @@ export class EventsListComponent implements OnInit {
   loggedUser: string;
   trashToggle: boolean;
   editID: number;
+  booted: boolean;
 
   constructor(private http: HttpClient, private databaseService: DatabaseService, private router: Router) {
     if (!databaseService.loaded) {
@@ -27,6 +47,7 @@ export class EventsListComponent implements OnInit {
     }
     this.trashToggle = false;
     this.editID = -1;
+    this.booted = false;
   }
 
   ngOnInit() {
@@ -41,10 +62,16 @@ export class EventsListComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.booted = true;
+    }, 100);
+  }
+
   trashToggleInput(payload) {
     this.trashToggle = payload;
   }
-  
+
   editEvent(event) {
     this.pushToEventsDB();
   }
@@ -55,6 +82,7 @@ export class EventsListComponent implements OnInit {
   }
 
   checkEvent(event) {
+    this.booted = true;
     event.checkedBy.push(this.loggedUser);
     event.going++;
     this.pushToEventsDB();
