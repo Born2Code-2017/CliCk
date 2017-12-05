@@ -38,7 +38,7 @@ export class EventsListComponent implements OnInit {
   eventsDB: Event[];
   loggedUser: string;
   trashToggle: boolean;
-  editID: number;
+  selectionID: number;
   booted: boolean;
 
   constructor(private http: HttpClient, private databaseService: DatabaseService, private router: Router) {
@@ -46,7 +46,7 @@ export class EventsListComponent implements OnInit {
       router.navigate(["/loading"], { queryParams: { page: "/home" } });
     }
     this.trashToggle = false;
-    this.editID = -1;
+    this.selectionID = -1;
     this.booted = false;
   }
 
