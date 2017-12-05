@@ -13,7 +13,8 @@ export class DatabaseService {
 
   constructor(private http: HttpClient) {
     this.loaded = false;
-    this.getDB("users", 0);
+    this.getDB();
+    /*this.getDB("users", 0);
     let currentStorage = localStorage.getItem("eventsDBHash");
     if (!currentStorage) {
       this.getDB("events", 1);
@@ -32,7 +33,7 @@ export class DatabaseService {
           console.log("Online DB");
         }
       });
-    }
+    }*/
   }
 
   GetUsers() {
@@ -55,8 +56,15 @@ export class DatabaseService {
     return this.usersDB.findIndex(x => x.hash === loggedUser).toString();
   }
 
+  getDB() {
+    this.http.get("https://click-e25d0.firebaseio.com/click.json").subscribe(data => {
+      this.usersDB = data["users"];
+      this.eventsDB = data["events"];
+    });
+    localStorage.setItem("eventsDB", JSON.stringify(this.eventsDB));
+  }
 
-  private getDB(path: string, db: number) {
+  /*private getDB(path: string, db: number) {
     this.http.get("https://click-e25d0.firebaseio.com/click.json").subscribe(data => {
       switch (db) {
         case 0:
@@ -68,7 +76,7 @@ export class DatabaseService {
           break;
       }
     });
-  }
+  }*/
 
   sendDB(post: any) {
     this.http.put("https://click-e25d0.firebaseio.com/click/events.json/", JSON.stringify(this.eventsDB)).subscribe(data => {
