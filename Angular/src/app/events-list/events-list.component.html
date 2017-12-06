@@ -1,80 +1,77 @@
-<div [@slideRight]="booted">
-  <app-menu (trashToggleOutput)="trashToggleInput($event)" (searchOutput)="searchInput($event)"></app-menu>
-  <div class="container">
-    <table class="table table-striped">
-      <tr>
-        <th></th>
-        <th>Date & Time</th>
-        <th>Event's Name</th>
-        <th>Event's Owner</th>
-        <th>Event's Location</th>
-        <th>Event's Partecipants</th>
-        <th></th>
-      </tr>
-      <tr *ngFor="let event of eventsDB | trashFilter:usersDB:loggedUser:trashToggle | search:searchQuery">
-        <td *ngIf="!trashToggle && event.owner_id !== usersDB[loggedUser].id && event.checkedBy.indexOf(loggedUser) === -1" class="bg-dark"></td>
-        <td *ngIf="!trashToggle && event.owner_id === usersDB[loggedUser].id && event.checkedBy.indexOf(loggedUser) === -1" class="bg-warning"></td>
-        <td *ngIf="!trashToggle && event.checkedBy.indexOf(loggedUser) > -1" class="bg-primary"></td>
-        <td *ngIf="trashToggle" class="bg-danger"></td>
-        <td>
-          <div class="calendar">
-            <div class="date">{{event.date.substring(8,10)}}
-              <br>{{monthConversion(event.date)}}</div>
-            <div class="time">{{event.time}}</div>
-          </div>
-        </td>
-        <td>
-          <span class="fa fa-bookmark"></span> {{event.name}}</td>
-        <td>
-          <span class="fa fa-user"></span> {{usersDB[event.owner_id].name}}</td>
-        <td>
-          <span class="fa fa-map-marker"></span> {{event.city}}, {{event.address}}</td>
-        <td>
-          <span class="fa fa-heart"></span> {{event.going}} People are going</td>
-        <td>
-          <button (click)="checkEvent(event)" *ngIf="!trashToggle && event.owner_id !== usersDB[loggedUser].id && event.checkedBy.indexOf(loggedUser) === -1"
-            type="button" class="btn btn-primary">
-            <span class="fa fa-check"></span>
-          </button>
-          <button (click)="uncheckEvent(event)" *ngIf="!trashToggle && event.owner_id !== usersDB[loggedUser].id && event.checkedBy.indexOf(loggedUser) > -1"
-            type="button" class="btn btn-outline-secondary">
-            <span class="fa fa-remove"></span>
-          </button>
-          <button (click)="restoreEvent(event)" *ngIf="trashToggle" type="button" class="btn btn-primary">
-            <span class="fa fa-repeat"></span>
-          </button>
-          <button (click)="triggerEdit(event)" data-toggle="modal" data-target="#editModal" *ngIf="!trashToggle && event.owner_id === usersDB[loggedUser].id"
-            type="button" class="btn btn-warning">
-            <span class="fa fa-pencil"></span>
-          </button>
-          <button *ngIf="!trashToggle && event.owner_id !== usersDB[loggedUser].id" type="button" class="btn btn-danger" (click)="moveToTrash(event)">
+<app-menu (trashToggleOutput)="trashToggleInput($event)" (searchOutput)="searchInput($event)"></app-menu>
+<div class="container">
+  <table class="table table-striped">
+    <tr>
+      <th></th>
+      <th>Date & Time</th>
+      <th>Event's Name</th>
+      <th>Event's Owner</th>
+      <th>Event's Location</th>
+      <th>Event's Partecipants</th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let event of eventsDB | trashFilter:usersDB:loggedUser:trashToggle | search:searchQuery">
+      <td *ngIf="!trashToggle && event.owner_id !== usersDB[loggedUser].id && event.checkedBy.indexOf(loggedUser) === -1" class="bg-dark"></td>
+      <td *ngIf="!trashToggle && event.owner_id === usersDB[loggedUser].id && event.checkedBy.indexOf(loggedUser) === -1" class="bg-warning"></td>
+      <td *ngIf="!trashToggle && event.checkedBy.indexOf(loggedUser) > -1" class="bg-primary"></td>
+      <td *ngIf="trashToggle" class="bg-danger"></td>
+      <td>
+        <div class="calendar">
+          <div class="date">{{event.date.substring(8,10)}}
+            <br>{{monthConversion(event.date)}}</div>
+          <div class="time">{{event.time}}</div>
+        </div>
+      </td>
+      <td>
+        <span class="fa fa-bookmark"></span> {{event.name}}</td>
+      <td>
+        <span class="fa fa-user"></span> {{usersDB[event.owner_id].name}}</td>
+      <td>
+        <span class="fa fa-map-marker"></span> {{event.city}}, {{event.address}}</td>
+      <td>
+        <span class="fa fa-heart"></span> {{event.going}} People are going</td>
+      <td>
+        <button (click)="checkEvent(event)" *ngIf="!trashToggle && event.owner_id !== usersDB[loggedUser].id && event.checkedBy.indexOf(loggedUser) === -1"
+          type="button" class="btn btn-primary">
+          <span class="fa fa-check"></span>
+        </button>
+        <button (click)="uncheckEvent(event)" *ngIf="!trashToggle && event.owner_id !== usersDB[loggedUser].id && event.checkedBy.indexOf(loggedUser) > -1"
+          type="button" class="btn btn-outline-secondary">
+          <span class="fa fa-remove"></span>
+        </button>
+        <button (click)="restoreEvent(event)" *ngIf="trashToggle" type="button" class="btn btn-primary">
+          <span class="fa fa-repeat"></span>
+        </button>
+        <button (click)="triggerEdit(event)" data-toggle="modal" data-target="#editModal" *ngIf="!trashToggle && event.owner_id === usersDB[loggedUser].id"
+          type="button" class="btn btn-warning">
+          <span class="fa fa-pencil"></span>
+        </button>
+        <button *ngIf="!trashToggle && event.owner_id !== usersDB[loggedUser].id" type="button" class="btn btn-danger" (click)="moveToTrash(event)">
+          <span class="fa fa-trash"></span>
+        </button>
+        <div *ngIf="event.owner_id === usersDB[loggedUser].id" class="btn-group">
+          <button type="button" class="btn btn-danger" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="fa fa-trash"></span>
           </button>
-          <div *ngIf="event.owner_id === usersDB[loggedUser].id" class="btn-group">
-            <button type="button" class="btn btn-danger" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="fa fa-trash"></span>
-            </button>
-            <div class="dropdown-menu dropdown-menu-right">
-              <a class="dropdown-item" (click)="deleteEvent(event)">
-                Confirm Deletion
-                <span class="fa fa-check"></span>
-              </a>
-              <a class="dropdown-item">
-                Cancel
-                <span class="fa fa-angle-left"></span>
-              </a>
-            </div>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" (click)="deleteEvent(event)">
+              Confirm Deletion
+              <span class="fa fa-check"></span>
+            </a>
+            <a class="dropdown-item">
+              Cancel
+              <span class="fa fa-angle-left"></span>
+            </a>
           </div>
-          <button (click)="selectionID = event.id" type="button" data-toggle="modal" data-target="#descriptionModal" class="btn btn-outline-secondary">
-            <span class="fa fa-ellipsis-h"></span>
-          </button>
-        </td>
-      </tr>
-    </table>
-  </div>
-
-  <app-footer></app-footer>
+        </div>
+        <button (click)="selectionID = event.id" type="button" data-toggle="modal" data-target="#descriptionModal" class="btn btn-outline-secondary">
+          <span class="fa fa-ellipsis-h"></span>
+        </button>
+      </td>
+    </tr>
+  </table>
 </div>
+<app-footer></app-footer>
 <div *ngIf="selectionID > -1" id="editModal" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static"
   aria-labelledby="#editModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -96,7 +93,8 @@
           <span class="input-group-addon">
             <span class="fa fa-info"></span>
           </span>
-          <input [(ngModel)]="eventsDB[selectionID].description" type="text" class="form-control" placeholder="Event's Description" aria-describedby="sizing-addon1">
+          <input [(ngModel)]="eventsDB[selectionID].description" type="text" class="form-control" placeholder="Event's Description"
+            aria-describedby="sizing-addon1">
         </div>
         <div class="input-group input-group-lg">
           <span class="input-group-addon">
@@ -130,8 +128,8 @@
     </div>
   </div>
 </div>
-<div *ngIf="selectionID > -1" id="descriptionModal" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static"
-  aria-labelledby="#descriptionModalLabel" aria-hidden="true">
+<div *ngIf="selectionID > -1" id="descriptionModal" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false"
+  data-backdrop="static" aria-labelledby="#descriptionModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">

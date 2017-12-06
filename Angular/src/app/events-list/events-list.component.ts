@@ -19,18 +19,7 @@ import {
 @Component({
   selector: 'app-events-list',
   templateUrl: './events-list.component.html',
-  styleUrls: ['./events-list.component.css'],
-  animations: [
-    trigger('slideRight', [
-      state('false', style({
-        transform: "scale(2)"
-      })),
-      state('true', style({
-        transform: "scale(1)"
-      })),
-      transition('false => true', animate('500ms ease-in')),
-    ])
-  ]
+  styleUrls: ['./events-list.component.css']
 })
 
 export class EventsListComponent implements OnInit {
@@ -39,7 +28,6 @@ export class EventsListComponent implements OnInit {
   loggedUser: string;
   trashToggle: boolean;
   selectionID: number;
-  booted: boolean;
   searchQuery: string;
 
   constructor(private http: HttpClient, private databaseService: DatabaseService, private router: Router) {
@@ -48,7 +36,6 @@ export class EventsListComponent implements OnInit {
     }
     this.trashToggle = false;
     this.selectionID = -1;
-    this.booted = false;
     this.searchQuery = "";
   }
 
@@ -62,12 +49,6 @@ export class EventsListComponent implements OnInit {
     else {
       this.loggedUser = this.databaseService.GetLoggedUser(localStorage.getItem("loggedUser"));
     }
-  }
-
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.booted = true;
-    }, 100);
   }
 
   trashToggleInput(payload) {
@@ -94,7 +75,6 @@ export class EventsListComponent implements OnInit {
   }
 
   checkEvent(event) {
-    this.booted = true;
     event.checkedBy.push(this.loggedUser);
     event.going++;
     this.pushToEventsDB();
