@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -10,8 +11,7 @@ import { MenuComponent } from './menu/menu.component';
 import { EventsListComponent } from './events-list/events-list.component';
 import { NewEventComponent } from './new-event/new-event.component';
 import { FooterComponent } from './footer/footer.component';
-import { HideTrash } from './events-list/hide-trashed.pipe';
-import { ViewTrash } from './events-list/view-trashed.pipe';
+import { TrashFilter } from './events-list/trash-filter.pipe';
 
 import { Routing } from './app.routing';
 import { DatabaseService } from './database.service';
@@ -27,13 +27,13 @@ import { ProgressDirective } from './progress.directive';
     EventsListComponent,
     NewEventComponent,
     FooterComponent,
-    HideTrash,
-    ViewTrash,
     LoadingComponent,
-    ProgressDirective
+    ProgressDirective,
+    TrashFilter
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,

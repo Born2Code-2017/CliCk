@@ -32,6 +32,7 @@ td:first-child {
     top:1px;
     left:-1px;
     border-top:0;
+    width:28px;
 }
 
 tr:last-child td:first-child {
