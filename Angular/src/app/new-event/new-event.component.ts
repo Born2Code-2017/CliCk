@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Event, DBToMD5 } from '../event.module';
+import { Event } from '../event.module';
 import { User } from '../user.module';
 
 import { HttpClient } from '@angular/common/http';
@@ -58,7 +58,6 @@ export class NewEventComponent implements OnInit {
   createEvent() {
     this.eventsDB.push(this.event);
     this.databaseService.SetEvents(this.eventsDB);
-    DBToMD5(this);
     this.databaseService.sendDB(this.router.navigate(["/home"]));
   }
 

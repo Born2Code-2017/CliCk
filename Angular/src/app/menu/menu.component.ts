@@ -51,7 +51,7 @@ export class MenuComponent implements OnInit {
   }
 
   public logOut() {
-    sessionStorage.clear();
+    sessionStorage.removeItem("loggedUser");
     localStorage.removeItem("loggedUser");
     this.router.navigate(["/login"]);
   }

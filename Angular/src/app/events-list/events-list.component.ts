@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 import { User } from '../user.module';
-import { Event, DBToMD5 } from '../event.module';
+import { Event } from '../event.module';
 
 import { HttpClient } from '@angular/common/http';
 
@@ -72,13 +72,19 @@ export class EventsListComponent implements OnInit {
     this.trashToggle = payload;
   }
 
+  triggerEdit(event) {
+    this.selectionID = event.id;
+    localStorage.setItem("eventsDB", JSON.stringify(this.eventsDB));
+  }
+
   editEvent(event) {
     this.pushToEventsDB();
+    localStorage.removeItem("eventsDB");
   }
 
   cancelEdit() {
-    let localEventDB = localStorage.getItem("eventsDB");
-    this.eventsDB = JSON.parse(localEventDB);
+    this.eventsDB = JSON.parse(localStorage.getItem("eventsDB"));
+    localStorage.removeItem("eventsDB");
   }
 
   checkEvent(event) {
@@ -101,7 +107,6 @@ export class EventsListComponent implements OnInit {
       event.checkedBy.splice(index, 1);
       event.going--;
     }
-    console.log(event);
     event.trashedBy.push(this.loggedUser);
     this.pushToEventsDB();
   }
@@ -123,8 +128,8 @@ export class EventsListComponent implements OnInit {
   }
 
   pushToEventsDB() {
+
     this.databaseService.SetEvents(this.eventsDB);
-    DBToMD5(this);
     this.databaseService.sendDB(null);
   }
 
