@@ -95,6 +95,7 @@ export class LoginComponent implements OnInit {
     this.failEmail = false;
     this.forgot = true;
     this.validation = true;
+    this.forgotFail = "";
   }
 
   public goBack() {
