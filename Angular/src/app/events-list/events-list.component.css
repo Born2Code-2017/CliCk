@@ -93,10 +93,6 @@ td:nth-child(7) {
     height:auto;
 }
 
-.modal-footer {
-    justify-content: space-between !important;
-}
-
 .input-group {
     margin-top:10px;
 }
