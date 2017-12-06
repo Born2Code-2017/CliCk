@@ -114,7 +114,6 @@ export class EventsListComponent implements OnInit {
   }
 
   pushToEventsDB() {
-
     this.databaseService.SetEvents(this.eventsDB);
     this.databaseService.sendDB(null);
   }

@@ -13,7 +13,7 @@ export class DatabaseService {
 
   constructor(private http: HttpClient) {
     this.loaded = false;
-    this.getDB();
+    this.getDB(null);
   }
 
   GetUsers() {
@@ -36,16 +36,19 @@ export class DatabaseService {
     return this.usersDB.findIndex(x => x.hash === loggedUser).toString();
   }
 
-  getDB() {
+  getDB(post: any) {
     this.http.get("https://click-e25d0.firebaseio.com/click.json").subscribe(data => {
       this.usersDB = data["users"];
       this.eventsDB = data["events"];
+      post;
     });
   }
 
   sendDB(post: any) {
-    this.http.put("https://click-e25d0.firebaseio.com/click/events.json/", JSON.stringify(this.eventsDB)).subscribe(data => {
-      post;
+    this.http.get("https://click-e25d0.firebaseio.com/click.json").subscribe(() => {
+      this.http.put("https://click-e25d0.firebaseio.com/click/events.json/", JSON.stringify(this.eventsDB)).subscribe(() => {
+        post;
+      });
     });
   }
 }
