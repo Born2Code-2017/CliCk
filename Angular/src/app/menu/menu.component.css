@@ -19,17 +19,17 @@ a, a:hover, .btn {
 
 .row .col:first-child {
     text-align:right;
-    padding-top:10px;
+    padding-top:20px;
     padding-right:-20px !important;
 }
 
 .row .col:last-child {
     text-align:left;
-    padding-top:10px;
+    padding-top:20px;
 }
 
 .row .col img {
-    margin-top:-75px;
+    margin-top:-50px;
     border:2px solid white;
     border-radius:100%;
 }

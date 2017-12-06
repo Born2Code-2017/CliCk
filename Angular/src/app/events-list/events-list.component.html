@@ -1,5 +1,5 @@
 <div [@slideRight]="booted">
-  <app-menu (trashToggleOutput)="trashToggleInput($event)"></app-menu>
+  <app-menu (trashToggleOutput)="trashToggleInput($event)" (searchOutput)="searchInput($event)"></app-menu>
   <div class="container">
     <table class="table table-striped">
       <tr>
@@ -11,7 +11,7 @@
         <th>Event's Partecipants</th>
         <th></th>
       </tr>
-      <tr *ngFor="let event of eventsDB | trashFilter:usersDB:loggedUser:trashToggle">
+      <tr *ngFor="let event of eventsDB | trashFilter:usersDB:loggedUser:trashToggle | search:searchQuery">
         <td *ngIf="!trashToggle && event.owner_id !== usersDB[loggedUser].id && event.checkedBy.indexOf(loggedUser) === -1" class="bg-dark"></td>
         <td *ngIf="!trashToggle && event.owner_id === usersDB[loggedUser].id && event.checkedBy.indexOf(loggedUser) === -1" class="bg-warning"></td>
         <td *ngIf="!trashToggle && event.checkedBy.indexOf(loggedUser) > -1" class="bg-primary"></td>

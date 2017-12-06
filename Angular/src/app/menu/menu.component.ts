@@ -17,11 +17,14 @@ export class MenuComponent implements OnInit {
   public avatar: any;
   public trashToggle: boolean;
   public currentPath: string;
+  public searchQuery: string;
 
   @Output() trashToggleOutput: EventEmitter<boolean> = new EventEmitter<boolean>();
-
+  @Output() searchOutput: EventEmitter<string> = new EventEmitter<string>();
+  
   constructor(private databaseService: DatabaseService, private router: Router, private activeRoute: ActivatedRoute, private sanitazer: DomSanitizer) {
     this.trashToggle = false;
+    this.searchQuery = "";
   }
 
   ngOnInit() {
@@ -54,5 +57,10 @@ export class MenuComponent implements OnInit {
     sessionStorage.removeItem("loggedUser");
     localStorage.removeItem("loggedUser");
     this.router.navigate(["/login"]);
+  }
+
+  public searchByName() {
+    console.log(this.searchQuery);
+    this.searchOutput.emit(this.searchQuery);
   }
 }

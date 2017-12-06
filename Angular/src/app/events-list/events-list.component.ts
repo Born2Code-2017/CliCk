@@ -40,6 +40,7 @@ export class EventsListComponent implements OnInit {
   trashToggle: boolean;
   selectionID: number;
   booted: boolean;
+  searchQuery: string;
 
   constructor(private http: HttpClient, private databaseService: DatabaseService, private router: Router) {
     if (!databaseService.loaded) {
@@ -48,6 +49,7 @@ export class EventsListComponent implements OnInit {
     this.trashToggle = false;
     this.selectionID = -1;
     this.booted = false;
+    this.searchQuery = "";
   }
 
   ngOnInit() {
@@ -70,6 +72,10 @@ export class EventsListComponent implements OnInit {
 
   trashToggleInput(payload) {
     this.trashToggle = payload;
+  }
+
+  searchInput(payload) {
+    this.searchQuery = payload;
   }
 
   triggerEdit(event) {

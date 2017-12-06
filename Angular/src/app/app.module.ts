@@ -12,6 +12,7 @@ import { EventsListComponent } from './events-list/events-list.component';
 import { NewEventComponent } from './new-event/new-event.component';
 import { FooterComponent } from './footer/footer.component';
 import { TrashFilter } from './events-list/trash-filter.pipe';
+import { SearchPipe } from './events-list/search.pipe';
 
 import { Routing } from './app.routing';
 import { DatabaseService } from './database.service';
@@ -29,7 +30,8 @@ import { ProgressDirective } from './progress.directive';
     FooterComponent,
     LoadingComponent,
     ProgressDirective,
-    TrashFilter
+    TrashFilter,
+    SearchPipe
   ],
   imports: [
     BrowserModule,

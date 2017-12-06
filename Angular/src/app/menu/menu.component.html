@@ -26,8 +26,7 @@
       </li>
     </ul>
     <form *ngIf="currentPath === 'home'" class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search">
-      <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+      <input (keyup)="searchByName()" [(ngModel)]="searchQuery" name="search" class="form-control mr-sm-2" type="text" placeholder="Search event by name">
     </form>
   </div>
 </nav>
