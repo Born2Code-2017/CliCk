@@ -18,3 +18,7 @@ Psw: japan
 ![homepage](https://user-images.githubusercontent.com/32071980/33380109-48ac475e-d51a-11e7-8e32-84bcfe5c83d8.png)
 
 ![newevent](https://user-images.githubusercontent.com/32071980/33380115-4923afd8-d51a-11e7-8543-47cc4bc66fda.png)
+
+## Forgot Password
+
+If the user loses his password, he can click "Forgot your password?", then insert his email and finally click "Send". An email is sent to your email address that contains the lost password.
