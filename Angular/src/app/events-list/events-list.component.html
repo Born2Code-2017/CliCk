@@ -3,11 +3,13 @@
   <table class="table table-striped">
     <tr>
       <th></th>
-      <th>Date & Time</th>
-      <th>Event's Name</th>
-      <th>Event's Owner</th>
-      <th>Event's Location</th>
-      <th>Event's Partecipants</th>
+      <th class="hidden">Date & Time</th>
+      <th class="mobile">Date</th>
+      <th class="hidden">Event's Name</th>
+      <th class="mobile">Event's Infos</th>
+      <th class="hidden">Event's Owner</th>
+      <th class="hidden">Event's Location</th>
+      <th class="hidden">Event's Partecipants</th>
       <th></th>
     </tr>
     <tr *ngFor="let event of eventsDB | trashFilter:usersDB:loggedUser:trashToggle | search:searchQuery">
@@ -22,13 +24,21 @@
           <div class="time">{{event.time}}</div>
         </div>
       </td>
-      <td>
+      <td class="hidden">
         <span class="fa fa-bookmark"></span> {{event.name}}</td>
-      <td>
+      <td class="hidden">
         <span class="fa fa-user"></span> {{usersDB[event.owner_id].name}}</td>
-      <td>
+      <td class="hidden">
         <span class="fa fa-map-marker"></span> {{event.city}}, {{event.address}}</td>
-      <td>
+      <td class="hidden">
+        <span class="fa fa-heart"></span> {{event.going}} People are going</td>
+      <td class="mobile">
+        <span class="fa fa-bookmark"></span> {{event.name}}
+        <br>
+        <span class="fa fa-user"></span> {{usersDB[event.owner_id].name}}
+        <br>
+        <span class="fa fa-map-marker"></span> {{event.city}}, {{event.address}}
+        <br>
         <span class="fa fa-heart"></span> {{event.going}} People are going</td>
       <td>
         <button (click)="checkEvent(event)" *ngIf="!trashToggle && event.owner_id !== usersDB[loggedUser].id && event.checkedBy.indexOf(loggedUser) === -1"

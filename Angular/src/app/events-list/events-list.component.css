@@ -83,7 +83,7 @@ td:nth-child(7) {
     padding:0 !important;
     width:40px;
     height:40px;
-    margin:0 2px 0 2px !important;
+    margin:0 0 2px 0 !important;
 }
 
 .modal .btn {
@@ -105,4 +105,56 @@ td:nth-child(7) {
 
 td button span {
     line-height:inherit !important;
+}
+
+.mobile {
+    display:none !important;
+}
+
+@media (max-width: 723px) {
+    .container {
+        border-radius: 0 !important;
+        margin-top:20px !important;
+        margin-bottom:75px !important;
+        max-width:100% !important;
+    }
+    
+    tr:last-child td:first-child {
+        border-bottom-left-radius: 0 !important;
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    .mobile {
+        display:table-cell !important;
+        font-size:14px !important;
+    }
+
+    .table td {
+        padding:.25rem !important;
+    }
+
+    .table th {
+        padding:.50rem !important;
+    }
+
+    td:first-child {
+        width:20px !important;
+    }
+
+    td:nth-child(7) {
+        text-align: left !important;
+    }
+
+    td:nth-child(8) {
+        display:flex;
+        flex-flow:column;
+        align-items: flex-end;
+    }
+
+    .table .btn {
+        display:block !important;
+    }
 }

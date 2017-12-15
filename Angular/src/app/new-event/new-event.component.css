@@ -21,3 +21,28 @@
 .btn {
     cursor: pointer;
 }
+
+@media (max-width: 768px) {
+    .input-group {
+        margin-bottom:0.5rem !important;
+    }
+
+    .form-group {
+        margin-bottom:0 !important;
+    }
+
+    .jumbotron {
+        padding:1rem !important;
+        border-radius: 0 !important;
+    }
+
+    .container {
+        padding:0 !important;
+        max-width:100% !important;
+    }
+
+    .container.d-flex {
+        padding-left:0.1rem !important;
+        padding-right:0.1rem !important;
+    }
+}

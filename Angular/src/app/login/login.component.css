@@ -23,36 +23,23 @@ body {
 }
 /** LOGO CONTAINER **/
 .logo-container {
-    margin-bottom: 4%;   
-    border-radius: 0.3em;
+    border-radius: 0.3em 0.3em 0 0;
     background-color: white;
+    padding-top:2rem;
 }
 .logo img{
     height: 60px;
-    margin: 9px 0 5px 0;  
 }
 /**** Decoration bar ****/
-.progress-bar-striped {
-    background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
-    background-size: 1rem 1rem;
-}
 .progress-bar {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-align: center;
-    align-items: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    color: #fff;
-    background-color: #007bff;
     height: 40px;
     border-radius: 0 0 0.3em 0.3em;
 }
 /** FORM CONTAINER **/
 form {      
     background-color: white;
-    border-radius: 0.3em;
-    padding: 45px 20px 30px 20px;
+    border-radius: 0 0 0.3em 0.3em;
+    padding: 2rem 1rem 2rem 1rem;
     position: relative;
     z-index: 1;
 }
@@ -60,13 +47,9 @@ form {
 input {
     border: 1px solid #cdcdcd;
     border-radius: 0.3em;
-    padding-right: 20px;
 }
 .input-group{
     margin-bottom: 20px;   
-}
-input#name, input#password{  
-    padding-right: 53px;
 }
 .fail-email, .fail-psw {
     border-color: red; 
@@ -80,13 +63,9 @@ input#name, input#password{
 }
 [type="button"] {
 text-align: center;
-height:54px;
 font-size: 18px;
 margin-bottom: 20px;
-}
-[type="text"], [type="password"] {   
-    text-align: center;   
-    height:54px;
+cursor:pointer !important;
 }
 /*** forgot password ***/
 .forgot-psw {    
@@ -105,4 +84,18 @@ footer {
     margin-top: 10%; 
     color: white;
     font-size: 12px;
+}
+
+@media (max-width: 768px) {
+    input {
+        font-size:17px !important;
+    }
+
+    .progress-bar {
+        height:30px !important;
+    }
+
+    .logo img {
+        height:50px;
+    }
 }

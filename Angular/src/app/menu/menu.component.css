@@ -34,8 +34,18 @@ a, a:hover, .btn {
     border-radius:100%;
 }
 
+.dropdown-menu {
+    left:-200% !important;
+    right:0 !important;
+}
+
 @media screen and (max-width: 768px) {
     .row .col:first-child, .row .col:last-child {
         display:none;
+    }
+
+    .row .col img {
+        width:150px !important;
+        height:150px !important;
     }
 }

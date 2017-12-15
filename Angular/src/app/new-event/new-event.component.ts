@@ -5,19 +5,22 @@ import { User } from '../user.module';
 import { HttpClient } from '@angular/common/http';
 import { DatabaseService } from '../database.service';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-new-event',
   templateUrl: './new-event.component.html',
-  styleUrls: ['./new-event.component.css']
+  styleUrls: ['./new-event.component.css'],
+  providers: [DatePipe]
 })
 export class NewEventComponent implements OnInit {
   eventsDB: Event[];
   usersDB: User[];
   event: Event;
   loggedUser: string;
+  today: any;
 
-  constructor(private http: HttpClient, private databaseService: DatabaseService, private router: Router) {
+  constructor(private http: HttpClient, private databaseService: DatabaseService, private router: Router, private datePipe: DatePipe) {
     if (!this.databaseService.loaded) {
       this.router.navigate(["/loading"], { queryParams: { page: "/new-event" } });
     }
@@ -34,6 +37,7 @@ export class NewEventComponent implements OnInit {
       trashedBy: ["-1"],
       checkedBy: ["-1"]
     };
+    this.today = Date.now();
   }
 
   ngOnInit() {
@@ -49,6 +53,8 @@ export class NewEventComponent implements OnInit {
     this.event.owner_id = parseInt(this.loggedUser, 10);
     this.event.id = this.eventsDB.length;
     this.event.going = Math.floor((Math.random() * 1000) + 1);
+    this.event.time = this.datePipe.transform(this.today, "HH:mm")
+    this.event.date = this.datePipe.transform(this.today, "yyyy-MM-dd");
   }
 
   goHome() {

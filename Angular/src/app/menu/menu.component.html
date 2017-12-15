@@ -2,37 +2,51 @@
   <a (click)="goHome()" class="navbar-brand mr-auto">
     <img src="../assets/logo.png" width="100" height="50" class="d-inline-block align-top" alt="Click">
   </a>
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav ml-auto">
-      <li *ngIf="currentPath === 'home'" class="nav-item">
-        <a (click)="viewTrash()" class="nav-link">
-          <span class="fa fa-trash"></span> View Trash</a>
-      </li>
-      <li *ngIf="currentPath === 'home'" class="nav-item">
-        <a (click)="newEvent()" class="nav-link">
-          <span class="fa fa-plus"></span> New Event</a>
-      </li>
-      <li *ngIf="currentPath !== 'home'" class="nav-item">
-        <a (click)="goHome()" class="nav-link">
-          <span class="fa fa-home"></span> Homepage</a>
-      </li>
-      <li class="nav-item">
-        <a (click)="logOut()" class="nav-link">
-          <span class="fa fa-sign-out"></span> Logout</a>
-      </li>
-    </ul>
-    <form *ngIf="currentPath === 'home'" class="form-inline my-2 my-lg-0">
-      <input (keyup)="searchByName()" [(ngModel)]="searchQuery" name="search" class="form-control mr-sm-2" type="text" placeholder="Search event by name">
-    </form>
+  <div class="dropdown">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="dropdown">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li *ngIf="currentPath === 'home'" class="nav-item">
+          <a (click)="viewTrash()" class="nav-link">
+            <span class="fa fa-trash"></span> View Trash</a>
+        </li>
+        <li *ngIf="currentPath === 'home'" class="nav-item">
+          <a (click)="newEvent()" class="nav-link">
+            <span class="fa fa-plus"></span> New Event</a>
+        </li>
+        <li *ngIf="currentPath !== 'home'" class="nav-item">
+          <a (click)="goHome()" class="nav-link">
+            <span class="fa fa-home"></span> Homepage</a>
+        </li>
+        <li class="nav-item">
+          <a (click)="logOut()" class="nav-link">
+            <span class="fa fa-sign-out"></span> Logout</a>
+        </li>
+      </ul>
+      <form *ngIf="currentPath === 'home'" class="form-inline my-2 my-lg-0">
+        <input (keyup)="searchByName()" [(ngModel)]="searchQuery" name="search" class="form-control mr-sm-2" type="text" placeholder="Search event by name...">
+      </form>
+    </div>
+    <div class="dropdown-menu">
+      <a *ngIf="currentPath === 'home'" (click)="viewTrash()" class="dropdown-item">
+        <span class="fa fa-trash"></span> View Trash</a>
+      <a *ngIf="currentPath === 'home'" (click)="newEvent()" class="dropdown-item">
+        <span class="fa fa-plus"></span> New Event</a>
+      <a *ngIf="currentPath !== 'home'" (click)="goHome()" class="dropdown-item">
+        <span class="fa fa-home"></span> Homepage</a>
+      <a (click)="logOut()" class="dropdown-item">
+        <span class="fa fa-sign-out"></span> Logout</a>
+      <form *ngIf="currentPath === 'home'" class="px-2">
+        <input (keyup)="searchByName()" [(ngModel)]="searchQuery" name="search" class="form-control" type="text" placeholder="Search by name...">
+      </form>
+    </div>
   </div>
 </nav>
 <div class="progress" style="border-radius:0; height:2rem;">
-  <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0"
-    aria-valuemax="100" style="width:100%;"></div>
+  <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+    style="width:100%;"></div>
 </div>
 <div *ngIf="usersDB" class="row">
   <div class="col">
