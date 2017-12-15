@@ -26,3 +26,4 @@ If the user loses his password, he can click "Forgot your password?", then inser
 ## Live Demo
 
 You can find it here up and running 24/7: http://loller79.github.io
+Credentials: fabio.russo@email.com - russia // ilaria.kazuko@email.com - japan
