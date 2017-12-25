@@ -1,8 +1,9 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from '../user.module';
 import { DatabaseService } from '../database.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
+import { FilterService } from '../filter.service';
 
 @Component({
   selector: 'app-menu',
@@ -18,11 +19,8 @@ export class MenuComponent implements OnInit {
   public trashToggle: boolean;
   public currentPath: string;
   public searchQuery: string;
-
-  @Output() trashToggleOutput: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() searchOutput: EventEmitter<string> = new EventEmitter<string>();
   
-  constructor(private databaseService: DatabaseService, private router: Router, private activeRoute: ActivatedRoute, private sanitazer: DomSanitizer) {
+  constructor(private filterService: FilterService, private databaseService: DatabaseService, private router: Router, private activeRoute: ActivatedRoute, private sanitazer: DomSanitizer) {
     this.trashToggle = false;
     this.searchQuery = "";
   }
@@ -50,7 +48,7 @@ export class MenuComponent implements OnInit {
 
   public viewTrash() {
     this.trashToggle = !this.trashToggle;
-    this.trashToggleOutput.emit(this.trashToggle);
+    this.filterService.setTrashToggle();
   }
 
   public logOut() {
@@ -60,7 +58,6 @@ export class MenuComponent implements OnInit {
   }
 
   public searchByName() {
-    console.log(this.searchQuery);
-    this.searchOutput.emit(this.searchQuery);
+    this.filterService.setSearchQuery(this.searchQuery);
   }
 }

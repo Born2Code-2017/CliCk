@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light bg-faded">
   <a (click)="goHome()" class="navbar-brand mr-auto">
-    <img src="../assets/logo.png" width="100" height="50" class="d-inline-block align-top" alt="Click">
+    <img src="../CliCk/assets/logo.png" width="100" height="50" class="d-inline-block align-top" alt="Click">
   </a>
   <div class="dropdown">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="dropdown">
@@ -25,9 +25,12 @@
             <span class="fa fa-sign-out"></span> Logout</a>
         </li>
       </ul>
-      <form *ngIf="currentPath === 'home'" class="form-inline my-2 my-lg-0">
-        <input (keyup)="searchByName()" [(ngModel)]="searchQuery" name="search" class="form-control mr-sm-2" type="text" placeholder="Search event by name...">
-      </form>
+      <div *ngIf="currentPath === 'home'" class="input-group search">
+        <input [(ngModel)]="searchQuery" name="search" class="form-control" type="text" placeholder="Search by name...">
+        <span class="input-group-btn">
+          <button (click)="searchByName()" class="btn btn-secondary" type="button">Go!</button>
+        </span>
+      </div>
     </div>
     <div class="dropdown-menu">
       <a *ngIf="currentPath === 'home'" (click)="viewTrash()" class="dropdown-item">
@@ -38,9 +41,12 @@
         <span class="fa fa-home"></span> Homepage</a>
       <a (click)="logOut()" class="dropdown-item">
         <span class="fa fa-sign-out"></span> Logout</a>
-      <form *ngIf="currentPath === 'home'" class="px-2">
-        <input (keyup)="searchByName()" [(ngModel)]="searchQuery" name="search" class="form-control" type="text" placeholder="Search by name...">
-      </form>
+      <div *ngIf="currentPath === 'home'" class="input-group search">
+        <input (keyup)="searchByName()" [(ngModel)]="searchQuery" name="search" class="form-control" type="text" placeholder="Search...">
+        <span class="input-group-btn">
+          <button (click)="searchByName()" class="btn btn-secondary" type="button">Go!</button>
+        </span>
+      </div>
     </div>
   </div>
 </nav>

@@ -1,20 +1,10 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
 import { User } from '../user.module';
 import { Event } from '../event.module';
-
 import { HttpClient } from '@angular/common/http';
-
 import { DatabaseService } from '../database.service';
 import { Router } from '@angular/router';
-
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition
-} from '@angular/animations';
+import { FilterService } from '../filter.service';
 
 @Component({
   selector: 'app-events-list',
@@ -30,7 +20,7 @@ export class EventsListComponent implements OnInit {
   selectionID: number;
   searchQuery: string;
 
-  constructor(private http: HttpClient, private databaseService: DatabaseService, private router: Router) {
+  constructor(private http: HttpClient, private databaseService: DatabaseService, private router: Router, private filterService: FilterService) {
     if (!databaseService.loaded) {
       router.navigate(["/loading"], { queryParams: { page: "/home" } });
     }
@@ -51,12 +41,9 @@ export class EventsListComponent implements OnInit {
     }
   }
 
-  trashToggleInput(payload) {
-    this.trashToggle = payload;
-  }
-
-  searchInput(payload) {
-    this.searchQuery = payload;
+  ngDoCheck() {
+    this.searchQuery = this.filterService.getSearchQuery();
+    this.trashToggle = this.filterService.getTrashToggle();
   }
 
   triggerEdit(event) {

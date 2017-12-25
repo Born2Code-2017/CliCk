@@ -5,4 +5,6 @@ footer{
     width: 100%;
     color: black;
     font-weight: 500;
+    position:absolute;
+    bottom:-100px;
 }

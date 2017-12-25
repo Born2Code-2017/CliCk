@@ -1,5 +1,5 @@
 nav {
-    background-color:white;
+    background-color: white;
 }
 
 a, a:hover, .btn {
@@ -12,40 +12,52 @@ a, a:hover, .btn {
 }
 
 .row {
-    color:white;
+    color: white;
     text-align: center;
-    margin:0;
+    margin: 0;
 }
 
 .row .col:first-child {
-    text-align:right;
-    padding-top:20px;
-    padding-right:-20px !important;
+    text-align: right;
+    padding-top: 20px;
+    padding-right: -20px !important;
 }
 
 .row .col:last-child {
-    text-align:left;
-    padding-top:20px;
+    text-align: left;
+    padding-top: 20px;
 }
 
 .row .col img {
-    margin-top:-50px;
-    border:2px solid white;
-    border-radius:100%;
+    margin-top: -50px;
+    border: 2px solid white;
+    border-radius: 100%;
 }
 
 .dropdown-menu {
-    left:-200% !important;
-    right:0 !important;
+    left: -200% !important;
+    right: 0 !important;
+}
+
+.search {
+    display: inline-flex !important;
+    width: 200px !important;
+}
+
+a.dropdown-item {
+    padding-left: 0.70rem !important;
 }
 
 @media screen and (max-width: 768px) {
     .row .col:first-child, .row .col:last-child {
-        display:none;
+        display: none;
     }
-
     .row .col img {
-        width:150px !important;
-        height:150px !important;
+        width: 150px !important;
+        height: 150px !important;
+    }
+    .search {
+        width: 100% !important;
+        padding: 0.25rem 0.5rem 0.25rem 0.5rem !important;
     }
 }
